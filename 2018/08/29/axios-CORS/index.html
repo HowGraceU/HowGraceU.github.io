@@ -90,7 +90,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xhr跨域请求"><span class="toc-text">xhr跨域请求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单请求"><span class="toc-text">简单请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#预检请求"><span class="toc-text">预检请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案一：修改请求头"><span class="toc-text">解决方案一：修改请求头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案二：服务端添加预检支持"><span class="toc-text">解决方案二：服务端添加预检支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题外-跨域资源共享标准-（有些不常用，mark一下）"><span class="toc-text">题外 跨域资源共享标准 （有些不常用，mark一下）</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xhr跨域请求"><span class="toc-text">xhr跨域请求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单请求"><span class="toc-text">简单请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#预检请求"><span class="toc-text">预检请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案一：修改请求头"><span class="toc-text">解决方案一：修改请求头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案二：服务端添加预检支持"><span class="toc-text">解决方案二：服务端添加预检支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题外：跨域资源共享标准-（有些不常用，mark一下）"><span class="toc-text">题外：跨域资源共享标准 （有些不常用，mark一下）</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -198,7 +198,7 @@
 <p><img src="../../../../img/axios-CORS/6.png" alt="预检请求POST"></p>
 <p><strong>由上面2图可以看出，预检跨域请求，浏览器会发送2个请求到服务器端，一个是OPTIONS预检，一个是POST请求，产生2条抓包。</strong></p>
 <p><br></p>
-<h3 id="题外-跨域资源共享标准-（有些不常用，mark一下）"><a href="#题外-跨域资源共享标准-（有些不常用，mark一下）" class="headerlink" title="题外 跨域资源共享标准 （有些不常用，mark一下）"></a>题外 跨域资源共享标准 （有些不常用，mark一下）</h3><p><strong>跨域资源共享标准（ <a href="http://www.w3.org/TR/cors/" target="_blank" rel="noopener">cross-origin sharing standard</a> ）允许在下列场景中使用跨域 HTTP 请求：</strong></p>
+<h3 id="题外：跨域资源共享标准-（有些不常用，mark一下）"><a href="#题外：跨域资源共享标准-（有些不常用，mark一下）" class="headerlink" title="题外：跨域资源共享标准 （有些不常用，mark一下）"></a>题外：跨域资源共享标准 （有些不常用，mark一下）</h3><p><strong>跨域资源共享标准（ <a href="http://www.w3.org/TR/cors/" target="_blank" rel="noopener">cross-origin sharing standard</a> ）允许在下列场景中使用跨域 HTTP 请求：</strong></p>
 <ul>
 <li><strong>XMLHttpRequest 或 Fetch 发起的跨域 HTTP 请求。</strong></li>
 <li><strong>Web 字体 (CSS 中通过 @font-face 使用跨域字体资源), 因此，网站就可以发布 TrueType 字体资源，并只允许已授权网站进行跨站调用。</strong></li>
