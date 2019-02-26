@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+
+    <title>
+        
+        跨域资源共享的种方法 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/./css/aircloud.css">
+    <link rel="stylesheet" href="/./css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/./img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-img-标签跨域"><span class="toc-text">1. img 标签跨域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-img-标签跨域"><span class="toc-text">2. img 标签跨域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-jsonp-跨域"><span class="toc-text">3. jsonp 跨域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-document-domain-跨-cookie"><span class="toc-text">4. document.domain 跨 cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-父子页面-location-hash"><span class="toc-text">5. 父子页面 location.hash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-父子页面-window-name"><span class="toc-text">6. 父子页面 window.name</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-父子页面-window-postMessage"><span class="toc-text">7. 父子页面 window.postMessage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-form表单跨域"><span class="toc-text">8. form表单跨域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-CORS"><span class="toc-text">9. CORS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-WebSocket"><span class="toc-text">10. WebSocket</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        跨域资源共享的种方法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-02-24 17:03:56</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#cross-domain" title="cross-domain">cross-domain</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><strong>最近学习过程中，听到（还是看到）有人说，看懂了不是真的会。看懂了，记下来并能够把别人讲懂才是真的会。</strong><br><strong>看完之后感触颇深，决定将之后学习全部做一个记录，来检验自己是否理解细节。今天就从老生常谈的跨域方法开始。</strong></p>
+<h3 id="1-img-标签跨域"><a href="#1-img-标签跨域" class="headerlink" title="1. img 标签跨域"></a>1. img 标签跨域</h3><p><strong>并非 img 标签，所有的带属性 src 可以请求到不同源的资源，并且可以在url里面加上queryString向后台发送数据。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// URL末尾带上了 ?name=jqx，传了name字段到后台</span></span><br><span class="line">&lt;img  crossOrigin=<span class="string">"anonymous"</span> id=<span class="string">"tulip"</span> src=<span class="string">"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=489343535,3713603063&amp;fm=58?name=jqx"</span> alt=<span class="string">"The Tulip"</span> /&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-img-标签跨域"><a href="#2-img-标签跨域" class="headerlink" title="2. img 标签跨域"></a>2. img 标签跨域</h3><p><strong>为什么第二个还是 img 标签跨域？是不是作者糊涂了？其实不然。</strong></p>
+<p><strong>图片和 base64 之间可以相互转换，所以就有人往上面动歪脑筋了，想出了花里胡哨（sang xin bing kuang）的办法。将数据放在图片里面，前端拿到图片之后，利用 canvas 可以拿到图片的 base64 数据。</strong></p>
+<p><strong>注意：跨域的图片想要利用 canvas 转成 base64 数据，需要在img和后台添加跨域支持（与 ajax 跨域类似）</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;img  crossOrigin=<span class="string">"anonymous"</span> id=<span class="string">"tulip"</span> src=<span class="string">"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=489343535,3713603063&amp;fm=58?name=jqx"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;canvas id=<span class="string">"myCanvas"</span>&gt;&lt;/canvas&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c=<span class="built_in">document</span>.getElementById(<span class="string">"myCanvas"</span>);</span><br><span class="line"><span class="keyword">var</span> ctx=c.getContext(<span class="string">"2d"</span>);</span><br><span class="line"><span class="keyword">var</span> img=<span class="built_in">document</span>.getElementById(<span class="string">"tulip"</span>);</span><br><span class="line"></span><br><span class="line">ctx.drawImage(img, <span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(myCanvas.toDataURL());</span><br></pre></td></tr></table></figure>
+<h3 id="3-jsonp-跨域"><a href="#3-jsonp-跨域" class="headerlink" title="3. jsonp 跨域"></a>3. jsonp 跨域</h3><p><strong>jsonp 跨域的道理与 img 方法有相同，也有不同的地方。</strong></p>
+<p><strong>相同的地方是，利用 script 标签的 src 属性，将自己定义好的回调函数传给后台，与 img 一样发起一个 GET 请求。</strong></p>
+<p><strong>不相同的是，img 标签拿到返回的数据之后会渲染图片，而 script 标签拿到返回数据之后，会运行返回的 js 代码，而代码的内容，就全权交由后台掌控了。</strong></p>
+<h3 id="4-document-domain-跨-cookie"><a href="#4-document-domain-跨-cookie" class="headerlink" title="4. document.domain 跨 cookie"></a>4. document.domain 跨 cookie</h3><p><strong>在跨域情况下，各个网页的 cookie 是无法共享的，但是如果两者的一级域名（至少是一级域名）相同的情况下，通过设置 cookie 的 domain 使得两个网页的 cookie 数据是可以共享的。</strong></p>
+<p><strong>正常情况下的 cookie</strong><br><img src="../../../../img/cross-domain-methiod/domain1.png" alt="domain1"></p>
+<p><strong>设置了 domain 的cookie</strong><br><img src="../../../../img/cross-domain-methiod/domain2.png" alt="domain2"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// www.baidu.com</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">'name=jqx;domain=.baidu.com'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// news.baidu.com</span></span><br><span class="line"><span class="built_in">document</span>.cookie</span><br><span class="line"><span class="comment">// name=jqx;</span></span><br></pre></td></tr></table></figure>
+<p><strong>不过一般情况下，都会从后台来控住 cookie domain 值</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: name=jqx; domain=.baidu.com</span><br></pre></td></tr></table></figure>
+<h3 id="5-父子页面-location-hash"><a href="#5-父子页面-location-hash" class="headerlink" title="5. 父子页面 location.hash"></a>5. 父子页面 location.hash</h3><p><strong>针对使用 iframe 或者 window.open 打开了不同源的网页，两者之间不能进行访问的情况。</strong></p>
+<p><strong>在提前知道对方的url的情况下，父子页面可以相互修改 hash 值来进行传值。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// iframe 打开子页面</span></span><br><span class="line"><span class="comment">// 父页面  http://192.168.0.112:8000/A.html</span></span><br><span class="line">&lt;iframe id=<span class="string">"myIframe"</span> name=<span class="string">"myIframe"</span> src=<span class="string">"http://192.168.0.112:8002/B.html"</span> frameborder=<span class="string">"0"</span>&gt;&lt;/iframe&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> myIframe = <span class="built_in">document</span>.getElementById(<span class="string">'myIframe'</span>);</span><br><span class="line">myIframe.src = <span class="string">`<span class="subst">$&#123;myIframe.src&#125;</span>#jqx`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 子页面 http://192.168.0.112:8002/B.html</span></span><br><span class="line"><span class="comment">// 因无法访问父页面，所以需先知道父页面的 url</span></span><br><span class="line"><span class="keyword">let</span> parentUrl = <span class="string">'http://192.168.0.112:8000/A.html'</span>;</span><br><span class="line">parent.location.href = <span class="string">`<span class="subst">$&#123;parentUrl&#125;</span>#jqx`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 window.open 方式打开子页面</span></span><br><span class="line"><span class="comment">// 父页面  http://192.168.0.112:8000/A.html</span></span><br><span class="line"><span class="keyword">let</span> childUrl = <span class="string">'http://192.168.0.112:8002/B.html'</span>;</span><br><span class="line"><span class="keyword">let</span> childWindow = <span class="built_in">window</span>.open(childUrl);</span><br><span class="line">childWindow.location.href = <span class="string">`<span class="subst">$&#123;childUrl&#125;</span>#jqx`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 子页面 http://192.168.0.112:8002/B.html</span></span><br><span class="line"><span class="keyword">let</span> parentUrl = <span class="string">'http://192.168.0.112:8000/A.html'</span>;</span><br><span class="line">windwo.opener.location.href = <span class="string">`<span class="subst">$&#123;parentUrl&#125;</span>#jqx`</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-父子页面-window-name"><a href="#6-父子页面-window-name" class="headerlink" title="6. 父子页面 window.name"></a>6. 父子页面 window.name</h3><p><strong>window.name 属性，只要在用一窗口里，前一个网页设置了这个属性，后一个网页也可以读取他。</strong></p>
+<p><strong>当父页面打开不同源的子页面，子页面可以将数据转成字符串存在 window.name 属性中，存完后再使用 location.herf 跳转到与父同源的页面，父页面就可以通过子页面的 window.name 属性拿到数据。</strong></p>
+<p><strong>这种方法局限性很大，无法及时得知子页面的 name 的变化（无监听API），且子页面返回一次数据后页面就被销毁。</strong></p>
+<h3 id="7-父子页面-window-postMessage"><a href="#7-父子页面-window-postMessage" class="headerlink" title="7. 父子页面 window.postMessage"></a>7. 父子页面 window.postMessage</h3><p><strong>H5 提供了新 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage" target="_blank" rel="noopener">postMessage API</a> 来帮助不同源的父子页面进行更方便的交互。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// iframe 打开子页面</span></span><br><span class="line"><span class="comment">// 父页面  http://192.168.0.112:8000/A.html</span></span><br><span class="line">&lt;iframe id=<span class="string">"myIframe"</span> name=<span class="string">"myIframe"</span> src=<span class="string">"http://192.168.0.112:8002/B.html"</span> frameborder=<span class="string">"0"</span>&gt;&lt;/iframe&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> myIframe = <span class="built_in">document</span>.getElementById(<span class="string">'myIframe'</span>);</span><br><span class="line">myIframe.addEventListener(<span class="string">'load'</span>, () =&gt; &#123;</span><br><span class="line">    myIframe.contentWindow.postMessage(&#123;<span class="attr">a</span>: <span class="number">1</span>&#125;, <span class="string">'http://192.168.0.112:8002'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, e =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`B data: <span class="subst">$&#123;e.data&#125;</span>`</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子页面 http://192.168.0.112:8002/B.html</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, (e) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> &#123;origin, data, source&#125; = e;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`message from : <span class="subst">$&#123;origin&#125;</span>`</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`data : <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(data)&#125;</span>`</span>);</span><br><span class="line">    source.postMessage(<span class="string">'receive'</span>, <span class="string">'http://192.168.0.112:8000'</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong><br><img src="../../../../img/cross-domain-methiod/postMessage.png" alt="postMessage"></p>
+<p><strong>其中 postMessage 方法第一个参数代表需要传输的数据，第二个方法代表希望传输的目标源。</strong></p>
+<p><strong>目标页面在 window 上绑定 message 事件后，待父页面发送数据触发页面。event 对象中有代表数据来源的 origin，代表数据的 data，代表来源 window 的 source。可以通过 source 通道反向传数据。</strong></p>
+<h3 id="8-form表单跨域"><a href="#8-form表单跨域" class="headerlink" title="8. form表单跨域"></a>8. form表单跨域</h3><p><strong>form 表单的提交是没有跨域限制的，因为表单的提交之后没法在不同源的页面拿到返回的数据，所以浏览器认为这是相对安全的请求。</strong><br><strong>BTW，所有的跨域请求其实都返回了，只是浏览器限制了 js 获取响应，所以导致了跨域问题。</strong><br><strong>form 表单可以跨域提交，并且将返回的数据写入指定的 iframe 中，再利用 iframe 之间的资源共享方案（5，6，7），还是有办法拿到数据的。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;form name=<span class="string">"login"</span> action=<span class="string">"http://192.168.0.112:3000/login"</span> method=<span class="string">"POST"</span> enctype=<span class="string">"multipart/form-data"</span> target=<span class="string">"login-iframe"</span>&gt;</span><br><span class="line">    &lt;label <span class="keyword">for</span>=<span class="string">"name"</span>&gt;name&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">    &lt;input name="name" type="text" value="jqx"&gt;</span></span><br><span class="line"><span class="regexp">    &lt;label for="password"&gt;password&lt;/</span>label&gt;</span><br><span class="line">    &lt;input name=<span class="string">"password"</span> type=<span class="string">"password"</span> value=<span class="string">"12345678"</span>&gt;</span><br><span class="line">    &lt;button&gt;提交&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>form&gt;</span><br><span class="line"></span><br><span class="line">&lt;iframe name=<span class="string">"login-iframe"</span> src=<span class="string">""</span> frameborder=<span class="string">"0"</span> width=<span class="string">"500"</span> height=<span class="string">"500"</span>&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="../../../../img/cross-domain-methiod/form.png" alt="form提交"></p>
+<h3 id="9-CORS"><a href="#9-CORS" class="headerlink" title="9. CORS"></a>9. CORS</h3><p><strong>主流的跨源资源分享解决方法。</strong><br><strong>使用 ajax 请求不同源页面资源，可以直接操作返回的数据，需要后台添加请求头。<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener">CORS MDN</a>描述得非常详细。</strong><br><strong>需要注意的是，CORS 有简单请求和非简单请求之分，而非简单请求时，会先向后台发送一个 OPTION 请求，之前还碰到非简单请求的坑。猛戳<a href="../../../..//2018/08/29/axios-CORS/">博客</a></strong></p>
+<h3 id="10-WebSocket"><a href="#10-WebSocket" class="headerlink" title="10. WebSocket"></a>10. WebSocket</h3><p><strong>WebSocket 是一个新协议，实现了客户端和服务端之间的全双工、实时、并发交互数据。</strong><br><strong>因为是一个全新的协议，所以浏览器在请求数据的时候就已经跨域了。服务端能通过请求头里面的 origin 字段来判断浏览器是否在白名单。</strong></p>
+<p><strong>以上全个人见解</strong></p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/public/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
