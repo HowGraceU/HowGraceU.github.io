@@ -54,13 +54,13 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li  class=active >
+            <li >
                 <a href="/blog/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li >
+            <li  class=active >
                 <a href="/blog/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
@@ -112,175 +112,138 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2019-02-24</div>
-        <div class="post-info">
-            <a href="/blog/2019/02/24/cross-domain-methiod/">
-                <h3>
-                    跨域资源共享的种方法
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#js" title="js">js</a>
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#cross-domain" title="cross-domain">cross-domain</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-10-25</div>
-        <div class="post-info">
-            <a href="/blog/2018/10/25/arrSort/">
-                <h3>
-                    array的长度大于10时，sort的行为
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#js" title="js">js</a>
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#v8" title="v8">v8</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-09-14</div>
-        <div class="post-info">
-            <a href="/blog/2018/09/14/node-cyclic/">
-                <h3>
-                    node 循环引用
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#node" title="node">node</a>
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#moudle" title="moudle">moudle</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-08-29</div>
-        <div class="post-info">
-            <a href="/blog/2018/08/29/axios-CORS/">
-                <h3>
-                    axios跨域请求报错
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#axios" title="axios">axios</a>
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#XHR" title="XHR">XHR</a>
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#CORS" title="CORS">CORS</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-08-28</div>
-        <div class="post-info">
-            <a href="/blog/2018/08/28/hello-world/">
-                <h3>
-                    hello world
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#blogTest" title="blogTest">blogTest</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-08-23</div>
-        <div class="post-info">
-            <a href="/blog/2018/08/23/leak&debugger/">
-                <h3>
-                    常见的内存泄露和排查
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#js" title="js">js</a>
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#devtools" title="devtools">devtools</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-12</div>
-        <div class="post-info">
-            <a href="/blog/2018/07/12/h5_webrtc-h5api/">
-                <h3>
-                    WebRTC p2p h5 api科普
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#h5" title="h5">h5</a>
-                <span>/</span>
-                
-                <a class="tag" href="/blog/tags/#WebRTC" title="WebRTC">WebRTC</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-</div>
-<ul class="pager">
-    
-    
-</ul>
 
+
+<!-- 归档列表 -->
+
+<div class="archives-container">
+
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2019">
+                    <span class="tag-text">2019</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>02-24</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2019/02/24/cross-domain-methiod/">
+                        <span>
+                            跨域资源共享的种方法
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+
+    </ul>
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2018">
+                    <span class="tag-text">2018</span>
+                </span>
+    <ul>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>10-25</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/10/25/arrSort/">
+                        <span>
+                            array的长度大于10时，sort的行为
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>09-14</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/09/14/node-cyclic/">
+                        <span>
+                            node 循环引用
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-29</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/08/29/axios-CORS/">
+                        <span>
+                            axios跨域请求报错
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-28</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/08/28/hello-world/">
+                        <span>
+                            hello world
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>08-23</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/08/23/leak&debugger/">
+                        <span>
+                            常见的内存泄露和排查
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+        <!-- <li class="listing-item">
+        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li> -->
+        <li >
+            <span>07-12</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/blog/2018/07/12/h5_webrtc-h5api/">
+                        <span>
+                            WebRTC p2p h5 api科普
+                        </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        </li>
+        
+
+    </ul>
+</div>
+
+</div>
     </div>
 </div>
 
