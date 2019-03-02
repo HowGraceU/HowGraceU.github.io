@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        li{
+            list-style: none;
+        }
+
+        .list {
+            width: 200px;
+        }
+
+        .card {
+            height: 350px;
+        }
+
+        .canvas-wrap {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .canvas {
+            border: 1px #000 solid;
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+        }
+
+        .color-text {
+            float: right;
+            width: 60px;
+        }
+
+        .number-text {
+            float: right;
+            width: 29px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper d-flex">
+        <div class="list">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="createType">create</label>
+                </div>
+                <select class="custom-select" id="createType">
+                    <option value="rect">Rect</option>
+                    <option value="circle">Circle</option>
+                    <option value="ellipse">Ellipse</option>
+                    <option value="line">Line</option>
+                </select>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    shape
+                </div>
+                <ul id="shapeArg" class="card-body">
+                    <li id="shapeX">
+                        <label for="x">xxxxx</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="x" id="x" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeY">
+                        <label for="y">yyyyy</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="y" id="y" value="0">
+                        <input type="text" class="number-text" id="y-value" value="0">
+                    </li>
+                    <li id="shapeWidth">
+                        <label for="width">width</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="width" id="width" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeHeight">
+                        <label for="height">height</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="height" id="height" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeCX" hidden>
+                        <label for="height">cxxxxx</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="cx" id="cx" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeCY" hidden>
+                        <label for="height">cyyyyy</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="cy" id="cy" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeR" hidden>
+                        <label for="height">rrrrrr</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="r" id="r" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeRX" hidden>
+                        <label for="height">rxxxxx</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="rx" id="rx" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeRY" hidden>
+                        <label for="height">ryyyyy</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="ry" id="ry" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeX1" hidden>
+                        <label for="height">x11111</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="x1" id="x1" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeY1" hidden>
+                        <label for="height">y11111</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="y1" id="y1" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeX2" hidden>
+                        <label for="height">x22222</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="x2" id="x2" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li id="shapeY2" hidden>
+                        <label for="height">y22222</label>
+                        <input type="range" class="handleChange"  min='0' max='790' name="y2" id="y2" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    transform
+                </div>
+                <ul class="card-body">
+                    <li>
+                        <label for="fill">fill</label>
+                        <input type="color" class="handleChange" name="fill" id="fill" value="#000000">
+                        <input type="text" class="color-text" value="#000000">
+                    </li>
+                    <li>
+                        <label for="stroke">stroke</label>
+                        <input type="color" class="handleChange" name="stroke" id="stroke" value="#000000">
+                        <input type="text" class="color-text" value="#000000">
+                    </li>
+                    <li>
+                        <label for="translateX">translateX</label>
+                        <input type="range" class="handleChange" min='-99' max='99' name="translateX" id="translateX">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li>
+                        <label for="translateY">translateY</label>
+                        <input type="range" class="handleChange" min='-99' max='99' name="translateY" id="translateY">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li>
+                        <label for="rotate">rotate</label>
+                        <input type="range" class="handleChange" min='0' max='360' name="rotate" id="rotate" value="0">
+                        <input type="text" class="number-text" value="0">
+                    </li>
+                    <li>
+                        <label for="scale">scale</label>
+                        <input type="range" class="handleChange" min='1' max='5' name="scale" id="scale" value="1">
+                        <input type="text" class="number-text" value="1">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="canvas-wrap">
+            <svg id="svgCanvas" class="canvas" style="margin: 20px;" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        const PI = Math.PI;
+
+        document.onreadystatechange = () => {
+            if (document.readyState == "complete") {
+                init()
+            }
+        }
+
+        function init() {
+            initEvent();
+        }
+
+        let handleMove;
+        let svgId = 0;
+        let selectDom = '';
+        let transformType = ['translateX', 'translateY', 'rotate', 'scale'];
+        let shapeMap = {
+            'rect': ['shapeX', 'shapeY', 'shapeWidth', 'shapeHeight'],
+            'circle': ['shapeCX', 'shapeCY', 'shapeR'],
+            'ellipse': ['shapeCX', 'shapeCY', 'shapeRX', 'shapeRY'],
+            'line': ['shapeX1', 'shapeY1', 'shapeX2', 'shapeY2'],
+        };
+        function initEvent() {
+            let drawTarget;
+
+            createType.addEventListener('change', e => {
+                let target = e.target;
+                let value = target.value;
+                shapeShow(value)
+                
+            }, false)
+            document.querySelectorAll('.card-body .handleChange').forEach(dom => {
+                dom.addEventListener('input', e => {
+                    let target = e.target;
+                    let value = target.value;
+                    target.nextElementSibling.value = value;
+
+                    let type = target.id;
+                    let svgDom = document.getElementById(selectDom);
+                    if (transformType.includes(type)) {
+                        let transform = svgDom.getAttribute('transform');
+                        // transform="matrix(1,0,0,1,30,30)"
+                        let oldMatrix = transform? transform.slice(7, -1).split(','): [1,0,0,1,0,0];
+                        let transformJson = decodeMatrix(oldMatrix);
+
+                        transformJson[type] = value;
+
+                        let newMatrix = encodeMatrix(transformJson);
+                        console.log(value, transformJson, newMatrix)
+                        svgDom.setAttribute('transform', `matrix(${newMatrix})`);
+                    } else {
+                        svgDom.setAttribute(type, value);
+                    }
+                }, false)
+            })
+
+            svgCanvas.addEventListener('mousedown', e => {
+                let target = e.target;
+
+                if (target.classList.contains('svgDom')) {
+                    let type = target.tagName;
+
+                    shapeShow(type);
+                    renderShape({type, target});
+
+                    selectDom = target.id;
+                } else {
+                    drawTarget = createSVG.bind(svgCanvas)({e});
+                    selectDom = drawTarget.id;
+
+                    svgCanvas.addEventListener('mousemove', handleMove, false)
+                }
+
+            }, false)
+
+            svgCanvas.addEventListener('mouseup', e => {
+                drawTarget && renderShape({target: drawTarget});
+                drawTarget = null;
+
+                svgCanvas.removeEventListener('mousemove', handleMove);
+            }, false)
+        }
+
+        function createSVG({e}) {
+            let type = createType.value;
+
+            let x1 = e.offsetX;
+            let y1 = e.offsetY;
+
+            let svgDom = document.createElementNS('http://www.w3.org/2000/svg', type);
+            svgDom.id = `svg${++svgId}`
+            svgDom.classList.add('svgDom')
+            svgDom.setAttribute('fill', '#ffffff');
+            svgDom.setAttribute('stroke', '#000000');
+            svgDom.setAttribute('style', `transform-origin: ${x1}px ${y1}px 0px`);
+
+            switch (type) {
+                case 'rect':
+                    svgDom.setAttribute('x', x1);
+                    svgDom.setAttribute('y', y1);
+                    break;
+                case 'circle':
+                    svgDom.setAttribute('cx', x1);
+                    svgDom.setAttribute('cy', y1);
+                    break;
+                case 'ellipse':
+                    svgDom.setAttribute('cx', x1);
+                    svgDom.setAttribute('cy', y1);
+                    break;
+                case 'line':
+                    svgDom.setAttribute('x1', x1);
+                    svgDom.setAttribute('y1', y1);
+                    break;
+            }
+
+            this.appendChild(svgDom);
+
+            handleMove = e => {
+                let {offsetX: x2, offsetY: y2, target} = e;
+
+                switch (type) {
+                    case 'rect':
+                        svgDom.setAttribute('width', x2 - x1);
+                        svgDom.setAttribute('height', y2 - y1);
+                        break;
+                    case 'circle':
+                        svgDom.setAttribute('r', Math.hypot(x2 - x1, y2 - y1));
+                        break;
+                    case 'ellipse':
+                        svgDom.setAttribute('rx', x2 - x1);
+                        svgDom.setAttribute('ry', y2 - y1);
+                        break;
+                    case 'line':
+                        svgDom.setAttribute('x2', x2);
+                        svgDom.setAttribute('y2', y2);
+                        break;
+                }
+            }
+
+            return svgDom;
+        }
+
+        function renderShape({target, type = document.getElementById('createType').value}) {
+            let attrs = ['fill', 'stroke', ...shapeMap[type].map(attr => attr.toLowerCase().replace('shape', ''))];
+            let attributes = target.attributes;
+
+            attrs.forEach(attr => {
+                let {name, value} = attributes[attr];
+                setInputValueById({id: name, value});
+            })
+
+
+            let {transform} = attributes;
+
+            let matrix = transform? transform.value.slice(7, -1).split(','): [1,0,0,1,0,0];
+            let transformAttr = decodeMatrix(matrix);
+            for (let [attr, value] of Object.entries(transformAttr)) {
+                setInputValueById({id: attr, value});
+            }
+        }
+
+        function setInputValueById({id, value}) {
+            let argDom = document.getElementById(id);
+            if (argDom) {
+                argDom.value = value;
+                argDom.nextElementSibling.value = value;
+            }
+        }
+
+        function encodeMatrix({translateX, translateY, rotate, scale}) {
+            let rad = rotate * PI / 180;
+            let a = scale * Math.cos(rad);
+            let b = scale * Math.sin(rad);
+            let c = scale * -Math.sin(rad);
+            let d = scale * Math.cos(rad);
+            let e = translateX;
+            let f = translateY;
+
+            return [a,b,c,d,e,f]
+        }
+
+        function decodeMatrix([a,b,c,d,e,f]) {
+            let translateX = e;
+            let translateY = f;
+            let scale = Math.round(Math.sqrt(Math.pow(a ,2) + Math.pow(b ,2)));
+            let radC = Math.acos(a / scale);
+            let radS = Math.asin(b / scale);
+
+            let rad
+            if (b >= 0) {
+                rad = radC;
+            } else if (b < 0) {
+                rad = 2 * PI - radC;
+            }
+ 
+            let rotate = Math.round(rad * 180 / Math.PI);
+
+            return {translateX, translateY, rotate, scale}
+        }
+
+        function shapeShow(type) {
+            let shapeArr = shapeMap[type] || [];
+
+            [...shapeArg.children].forEach(li => {
+                li.hidden = !shapeArr.includes(li.id);
+            })
+        }
+    </script>
+</body>
+
+</html>
