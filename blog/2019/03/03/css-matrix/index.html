@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/blog/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        css 矩阵和 tramsform 之间换算 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵计算"><span class="toc-text">矩阵计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#matrix-与-transfrom-各个属性的转换。"><span class="toc-text">matrix 与 transfrom 各个属性的转换。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#matrix-与-transfrom-转换函数。"><span class="toc-text">matrix 与 transfrom 转换函数。</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        css 矩阵和 tramsform 之间换算
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-03 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/blog/tags/#css" title="css">css</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#matrix" title="matrix">matrix</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><strong>在学数学时，同学们总在一起打趣：学这么多的函数运算有什么用，以后买菜总不能先列一个函数，算出该付多少钱吧。可谁知，在科技高速发展的时代，打趣的话也快要“实现”了。</strong><br><strong>在 css3 中，退出了新属性——— matrix(矩阵)，这不正是大一时候学的线性代数吗（好在大一的时候还不是很皮，都认真听讲了）</strong></p>
+<h3 id="矩阵计算"><a href="#矩阵计算" class="headerlink" title="矩阵计算"></a>矩阵计算</h3><p><strong>css3 中的 matrix 用来代替多个 transfrom 属性或者一些 transfrom 无法实现的效果，就来看一看 matrix 是怎么实现变换的吧。</strong></p>
+<p><strong>首先来看一下矩阵的参数：</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(a,b,c,d,e,f);</span><br></pre></td></tr></table></figure></p>
+<p><strong>这6个参数提供了一个 3 * 3 的矩阵，而经过这个矩阵能够计算出变换前的 x，y 值与变换后的 x，y 值的关系。反应式如下：</strong></p>
+<p><img src="../../../../img/css-matrix/matrix.gif" alt="matrix"></p>
+<p><strong>其中 x，y 为变化前的坐标，ax+cy+e 为变换后的 x’，bx+dy+f 表示变换后的 y’。</strong><br><strong>举个例子，如果我们有一个矩形有 A(0, 0) B(200, 0) C(0, 100) D(200, 100) 四个点组成，经过矩阵转换后，我们希望得到如下变换：</strong></p>
+<p><img src="../../../../img/css-matrix/transfrom.png" alt="transfrom"></p>
+<p><strong>在 css 中，坐标轴的零点都是左上角，x 轴和 y 轴的方向也与数学中的坐标轴有所不同。也就是我们需要得到的矩阵坐标为 A’(300, 100) B’(300, 300) C’(400, 100) D’(400, 300)，那么就可以根据公式 ax+cy+e=x’，bx+dy+f=y’ 算出 a,b,c,d,e,f 各为多少。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将 A(0, 0) 和 A'(300, 100) 两点带入 ax+cy+e=x' bx+dy+f=y'</span></span><br><span class="line">a * <span class="number">0</span> + c * <span class="number">0</span> + e = <span class="number">300</span>;</span><br><span class="line">b * <span class="number">0</span> + d * <span class="number">0</span> + f = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">e = <span class="number">300</span>;</span><br><span class="line">f = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以此类推，将四个点全部带入计算得出 a,b,c,d,e,f 四个值</span></span><br><span class="line"><span class="comment">// 此例中为 </span></span><br><span class="line">transform: matrix(<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">300</span>, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>最终矩阵变换的效果图如下</strong></p>
+<p><iframe src="https://howgraceu.github.io/demo/matrix/" style="margin-left: -2em; width: 100%; height: 225px;"><iframe></iframe></iframe></p>
+<h3 id="matrix-与-transfrom-各个属性的转换。"><a href="#matrix-与-transfrom-各个属性的转换。" class="headerlink" title="matrix 与 transfrom 各个属性的转换。"></a>matrix 与 transfrom 各个属性的转换。</h3><p><strong>transfrom 的各个属性能够与 matrix 相互转换。</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* matrix 默认值 */</span></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">matrix</span>(1, 0, 0, 1, 0, 0);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* translate */</span></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">translate</span>(<span class="selector-tag">x</span>, <span class="selector-tag">y</span>);</span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">matrix</span>(0, 0, 0, 0, <span class="selector-tag">x</span>, <span class="selector-tag">y</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* scale */</span></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">scale</span>(<span class="selector-tag">x</span>, <span class="selector-tag">y</span>);</span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">matrix</span>(<span class="selector-tag">x</span>, 0 * <span class="selector-tag">x</span>, 0 * <span class="selector-tag">y</span>, <span class="selector-tag">y</span>, 0, 0);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* rotate */</span></span><br><span class="line"><span class="selector-tag">rotate</span>: <span class="selector-tag">rotate</span>(θ);</span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">matrix</span>(<span class="selector-tag">cos</span>θ, <span class="selector-tag">sin</span>θ, <span class="selector-tag">-sin</span>θ, <span class="selector-tag">cos</span>θ, 0, 0);</span><br></pre></td></tr></table></figure>
+<p><strong>张鑫旭大神的博客<a href="https://www.zhangxinxu.com/wordpress/2012/06/css3-transform-matrix-%E7%9F%A9%E9%98%B5/" target="_blank" rel="noopener">理解CSS3 transform中的Matrix</a> 一文对此有详细的解释。</strong></p>
+<p><strong>但是需要注意的是，当 scale 和 rotate 一起使用的时候，两者的值需要相乘。</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* scale 2 */</span></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">scale</span>(<span class="selector-tag">x</span>, <span class="selector-tag">y</span>);</span><br><span class="line"><span class="selector-tag">rotate</span>: <span class="selector-tag">rotate</span>(θ);</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">matrix</span>(<span class="selector-tag">cos</span>θ * <span class="selector-tag">x</span>, <span class="selector-tag">sin</span>θ * <span class="selector-tag">x</span>, <span class="selector-tag">-sin</span>θ * <span class="selector-tag">y</span>, <span class="selector-tag">cos</span>θ * <span class="selector-tag">y</span>, 0, 0);</span><br></pre></td></tr></table></figure>
+<h3 id="matrix-与-transfrom-转换函数。"><a href="#matrix-与-transfrom-转换函数。" class="headerlink" title="matrix 与 transfrom 转换函数。"></a>matrix 与 transfrom 转换函数。</h3><p><strong>根据 matrix 与 transfrom 之间的关系，可以提出一个函数来进行两者之间的转换。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PI = <span class="built_in">Math</span>.PI;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encodeMatrix</span>(<span class="params">&#123;translateX = <span class="number">0</span>, translateY = <span class="number">0</span>, rotate=<span class="number">0</span>, scaleX=<span class="number">1</span>, scaleY=<span class="number">1</span>&#125; = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> rad = rotate * PI / <span class="number">180</span>;</span><br><span class="line">    <span class="keyword">let</span> a = scaleX * <span class="built_in">Math</span>.cos(rad);</span><br><span class="line">    <span class="keyword">let</span> b = scaleX * <span class="built_in">Math</span>.sin(rad);</span><br><span class="line">    <span class="keyword">let</span> c = scaleY * -<span class="built_in">Math</span>.sin(rad);</span><br><span class="line">    <span class="keyword">let</span> d = scaleY * <span class="built_in">Math</span>.cos(rad);</span><br><span class="line">    <span class="keyword">let</span> e = translateX;</span><br><span class="line">    <span class="keyword">let</span> f = translateY;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [a,b,c,d,e,f]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decodeMatrix</span>(<span class="params">[a = <span class="number">1</span>, b = <span class="number">0</span>, c = <span class="number">0</span>, d = <span class="number">1</span>, e = <span class="number">0</span>, f = <span class="number">0</span>] = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> translateX = e;</span><br><span class="line">    <span class="keyword">let</span> translateY = f;</span><br><span class="line">    <span class="keyword">let</span> scaleX = <span class="built_in">Math</span>.round(<span class="built_in">Math</span>.sqrt(<span class="built_in">Math</span>.pow(a, <span class="number">2</span>) + <span class="built_in">Math</span>.pow(b, <span class="number">2</span>)));</span><br><span class="line">    <span class="keyword">let</span> scaleY = <span class="built_in">Math</span>.round(<span class="built_in">Math</span>.sqrt(<span class="built_in">Math</span>.pow(c, <span class="number">2</span>) + <span class="built_in">Math</span>.pow(d, <span class="number">2</span>)));</span><br><span class="line">    <span class="keyword">let</span> radC = <span class="built_in">Math</span>.acos(a / scaleX);</span><br><span class="line">    <span class="keyword">let</span> radS = <span class="built_in">Math</span>.asin(b / scaleX);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> rad</span><br><span class="line">    <span class="keyword">if</span> (b &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        rad = radC;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        rad = <span class="number">2</span> * PI - radC;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> rotate = <span class="built_in">Math</span>.round(rad * <span class="number">180</span> / <span class="built_in">Math</span>.PI);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;translateX, translateY, rotate, scaleX, scaleY&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> matrix = encodeMatrix(&#123;<span class="attr">translateX</span>: <span class="number">30</span>, <span class="attr">translateY</span>: <span class="number">40</span>, <span class="attr">rotate</span>: <span class="number">45</span>, <span class="attr">scaleX</span>: <span class="number">2</span>, <span class="attr">scaleY</span>: <span class="number">3</span>&#125;);</span><br><span class="line"><span class="comment">//  [1.4142135623730951, 1.414213562373095, -2.1213203435596424, 2.121320343559643, 30, 40]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> transfrom = decodeMatrix([<span class="number">1.4142135623730951</span>, <span class="number">1.414213562373095</span>, <span class="number">-2.1213203435596424</span>, <span class="number">2.121320343559643</span>, <span class="number">30</span>, <span class="number">40</span>]);</span><br><span class="line"><span class="comment">// &#123;translateX: 30, translateY: 40, rotate: 45, scaleX: 2, scaleY: 3&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>上述函数在自己写的一个 <a href="https://howgraceu.github.io/demo/svg/">svg-editor</a> 的例子中使用，但是在使用过程中发现如果缩放倍数不为整数时，可能会得到不精确的结果，导致最后结果偏差较大。</strong></p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/blog/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
