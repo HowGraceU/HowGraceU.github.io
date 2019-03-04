@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/blog/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        jquery 技术内幕 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#jquery-对象"><span class="toc-text">jquery 对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jquery-原型"><span class="toc-text">jquery 原型</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        jquery 技术内幕
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-04 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#jquery" title="jquery">jquery</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
+<p><strong>记录前端鼻祖 ———— jquery 的 js 技巧</strong></p>
+<h3 id="jquery-对象"><a href="#jquery-对象" class="headerlink" title="jquery 对象"></a>jquery 对象</h3><p><strong>在没有 es6 的 Class 之前，js 中都使用 function 以及他的 propotype 来实现面向对象。但是尽管如此，总有人在初始化实例时，忘记加上 new 关键字，这就会造成意外的全局污染。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正常使用</span></span><br><span class="line"><span class="keyword">var</span> man = <span class="keyword">new</span> Person(<span class="string">'老王'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(man.name); <span class="comment">// 打印 老王</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 忘记带 new</span></span><br><span class="line"><span class="keyword">var</span> man = Person(<span class="string">'老王'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.name); <span class="comment">// window 添加了一个变量 name</span></span><br></pre></td></tr></table></figure>
+<p><strong>这就会在你不知情的情况下，定义了一个全局变量。而 jquery 在生成新对象的时候，从来都没有带上 new 关键字，jquery 在创建对象时使用了一个技巧。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Person(name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> man = <span class="keyword">new</span> createPerson(<span class="string">'老王'</span>);</span><br><span class="line"><span class="keyword">var</span> woman = createPerson(<span class="string">'小丽'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(man.name); <span class="comment">// 打印 老王</span></span><br><span class="line"><span class="built_in">console</span>.log(woman.name); <span class="comment">// 打印 小丽</span></span><br><span class="line"><span class="built_in">console</span>.log(man.prototype === woman.prototype); <span class="comment">// 打印 true</span></span><br></pre></td></tr></table></figure>
+<p><strong>使用 new 关键字后，如果函数 return 了一个对象，返回对象，若返回的不是对象则创建一个新对象返回。</strong></p>
+<p><strong>在 createPerson 函数返回了一个 new Preson，使得即使不使用 new 关键字也可以创建对象实例，既保证创建对象时的安全，也方便调用。</strong></p>
+<p><strong>源码中的代码：</strong></p>
+<p><img src="../../../../img/jquery_technology_insider/jquery_init.png" alt="jquery_init"></p>
+<h3 id="jquery-原型"><a href="#jquery-原型" class="headerlink" title="jquery 原型"></a>jquery 原型</h3><p><strong>在使用 jquery 的插件时，在 $.fn 上扩展方法，对象 $() 上就能访问刚刚挂载的方法。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$.fn.log123 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">123</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$().log123() <span class="comment">// 打印 123</span></span><br></pre></td></tr></table></figure>
+<p><strong>再结合上面返回的 $.fn.init 实例，可见 $.fn 就是 $.fn.init.prototype。的确在源码中也做了这样的定义，使得返回的对象可以拿到原型上的方法。</strong></p>
+<p><img src="../../../../img/jquery_technology_insider/jquery_init_propotype.png" alt="jquery_init_propotype"></p>
+<p><strong>再附上一张 jquery 非常绕的原型图：</strong></p>
+<p><img src="../../../../img/jquery_technology_insider/jquery_propotype.png" alt="jquery_propotype"></p>
+<p>### </p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/blog/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
