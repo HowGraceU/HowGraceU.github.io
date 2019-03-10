@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/yideng/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/yideng/img/favicon.ico">
+
+    <title>
+        
+        php面向对象 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/yideng/css/aircloud.css">
+    <link rel="stylesheet" href="/yideng/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/yideng/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/yideng/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/yideng/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/yideng/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/yideng/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类的声明"><span class="toc-text">类的声明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#成员属性"><span class="toc-text">成员属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#成员方法"><span class="toc-text">成员方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例化对象"><span class="toc-text">实例化对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#属性访问"><span class="toc-text">属性访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#this"><span class="toc-text">$this</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造方法"><span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#析构方法"><span class="toc-text">析构方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#封装"><span class="toc-text">封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修饰符"><span class="toc-text">修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#魔术方法"><span class="toc-text">魔术方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重写和重载"><span class="toc-text">重写和重载</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        php面向对象
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-10 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/yideng/tags/#php" title="php">php</a>
+        <span>/</span>
+        
+        <a class="tag" href="/yideng/tags/#OOP" title="OOP">OOP</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><strong>OOP目标：重用性、灵活性、扩展性。特点：封装、继承、多态</strong><br><strong>对象特征：行为、状态、标识。</strong></p>
+<h2 id="类的声明"><a href="#类的声明" class="headerlink" title="类的声明"></a>类的声明</h2><h3 id="成员属性"><a href="#成员属性" class="headerlink" title="成员属性"></a>成员属性</h3><p><strong>格式 修饰符 $变量名 [=默认值]</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> $var = <span class="number">100</span>; <span class="comment">// 普通数值（整数、浮点数、布尔、字符串）</span></span><br><span class="line"><span class="keyword">public</span> $var = myConst; <span class="comment">// 常量</span></span><br><span class="line"><span class="keyword">public</span> $var = <span class="keyword">self</span>::classConstant; <span class="comment">// 静态属性</span></span><br><span class="line"><span class="keyword">public</span> $var = <span class="keyword">array</span>(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 数组</span></span><br></pre></td></tr></table></figure>
+<h3 id="成员方法"><a href="#成员方法" class="headerlink" title="成员方法"></a>成员方法</h3><p><strong>格式 修饰符 function 方法名() {}</strong></p>
+<h3 id="实例化对象"><a href="#实例化对象" class="headerlink" title="实例化对象"></a>实例化对象</h3><p><strong>$对象名称 = new 类名([arg])</strong></p>
+<h3 id="属性访问"><a href="#属性访问" class="headerlink" title="属性访问"></a>属性访问</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$对象名称-&gt;成员属性  <span class="comment">// 获取</span></span><br><span class="line">$对象名称-&gt;成员属性 = 赋值 <span class="comment">// 赋值</span></span><br><span class="line">$对象名称-&gt;成员方法()  <span class="comment">// 调用</span></span><br></pre></td></tr></table></figure>
+<h3 id="this"><a href="#this" class="headerlink" title="$this"></a>$this</h3><p><strong>php 中的 this 指向实例。</strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $name;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">logName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"this name is &#123;$this -&gt; name&#125;"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'ok'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$BMW = <span class="keyword">new</span> Car();</span><br><span class="line">$BMW -&gt; name = <span class="string">'BMW'</span>;</span><br><span class="line">$ret = $BMW -&gt; logName();</span><br><span class="line"><span class="keyword">echo</span>(<span class="string">'&lt;br/&gt;'</span>);</span><br><span class="line"><span class="keyword">echo</span>($ret);</span><br></pre></td></tr></table></figure></p>
+<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><p><strong>new 对象的时候调用</strong></p>
+<p><strong>[修饰符] function__constructor() {}</strong></p>
+<h3 id="析构方法"><a href="#析构方法" class="headerlink" title="析构方法"></a>析构方法</h3><p><strong>对象被销毁或没有代码再执行的时候调用</strong></p>
+<p><strong>[修饰符] function__constructor() {}</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span> -&gt; name = $name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">logName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"this name is &#123;$this -&gt; name&#125;"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'ok'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'delete'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$BMW = <span class="keyword">new</span> Car(<span class="string">'BMW'</span>);</span><br><span class="line">$ret = $BMW -&gt; logName();</span><br><span class="line"><span class="keyword">echo</span>(<span class="string">'&lt;br/&gt;'</span>);</span><br><span class="line"><span class="keyword">echo</span>($ret);</span><br><span class="line"><span class="keyword">echo</span>(<span class="string">'&lt;br/&gt;'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印 </span></span><br><span class="line"><span class="comment">// this name is BMW</span></span><br><span class="line"><span class="comment">// ok</span></span><br><span class="line"><span class="comment">// delete</span></span><br></pre></td></tr></table></figure>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><p><strong>public 公有。private 私有，只能在class里访问。protected 受保护，只能在class里访问，继承时候有行为。</strong></p>
+<h3 id="魔术方法"><a href="#魔术方法" class="headerlink" title="魔术方法"></a>魔术方法</h3><p><strong>public 公有。private 私有，只能在class里访问。protected 受保护，只能在class里访问，继承时候子类可以访问。</strong></p>
+<p><strong>__set，设置private或者protected属性时触发。</strong></p>
+<p><strong>__get，获取private或者protected属性时触发。</strong></p>
+<p><strong>__isset，判断private或者protected属性存在时出发。</strong></p>
+<p><strong>__unset，删除private或者protected属性时触发。</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($pb, $pv, $pt)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span> -&gt; pb = $pb;</span><br><span class="line">        <span class="keyword">$this</span> -&gt; pv = $pv;</span><br><span class="line">        <span class="keyword">$this</span> -&gt; pt = $pt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> $pb;</span><br><span class="line">    <span class="keyword">private</span> $pv;</span><br><span class="line">    <span class="keyword">protected</span> $pt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__set</span><span class="params">($key, $val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&#123;$key&#125; &#123;$val&#125;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">($key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&#123;$key&#125;"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span> -&gt; $key;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__isset</span><span class="params">($key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&#123;$key&#125;"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__unset</span><span class="params">($key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&#123;$key&#125;"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$BMW = <span class="keyword">new</span> Car(<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>);</span><br><span class="line">$BMW -&gt; pb = <span class="string">'4'</span>;</span><br><span class="line"><span class="comment">// 不打印</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">$BMW -&gt; pv = <span class="string">'5'</span>;</span><br><span class="line"><span class="comment">// 打印 pv 5</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">$BMW -&gt; pt = <span class="string">'6'</span>;</span><br><span class="line"><span class="comment">// 打印 pt 6</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"><span class="keyword">echo</span> $BMW -&gt; pb;</span><br><span class="line"><span class="comment">// 打印 4</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"><span class="keyword">echo</span> $BMW -&gt; pv;</span><br><span class="line"><span class="comment">// 打印 pv2</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"><span class="keyword">echo</span> $BMW -&gt; pt;</span><br><span class="line"><span class="comment">// 打印 pt3</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">var_dump(<span class="keyword">isset</span>($BMW -&gt; pb));</span><br><span class="line"><span class="comment">// 打印 bool(true) </span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">var_dump(<span class="keyword">isset</span>($BMW -&gt; pv));</span><br><span class="line"><span class="comment">// 打印 pvbool(false) </span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">var_dump(<span class="keyword">isset</span>($BMW -&gt; pt));</span><br><span class="line"><span class="comment">// 打印 ptbool(false) </span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"><span class="keyword">unset</span>($BMW -&gt; pb);</span><br><span class="line"><span class="comment">// 打印 pb  unset的时候会触发公共属性的get？</span></span><br><span class="line"><span class="keyword">echo</span> $BMW -&gt; pb;</span><br><span class="line"><span class="comment">// 报错</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"><span class="keyword">unset</span>($BMW -&gt; pv);</span><br><span class="line"><span class="keyword">echo</span> $BMW -&gt; pv;</span><br><span class="line"><span class="comment">// pvpv2</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line"><span class="keyword">unset</span>($BMW -&gt; pt);</span><br><span class="line"><span class="keyword">echo</span> $BMW -&gt; pt;</span><br><span class="line"><span class="comment">// ptpt3</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><h3 id="重写和重载"><a href="#重写和重载" class="headerlink" title="重写和重载"></a>重写和重载</h3><p><strong>public 公有。private 私有，只能在class里访问。protected 受保护，只能在class里访问，继承时候子类可以访问。</strong></p>
+<p><strong>父类的非私有的方法和属性可以重载或者重写，重载时需要调用一次父级的方法。</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $pb;</span><br><span class="line">    <span class="keyword">private</span> $pv;</span><br><span class="line">    <span class="keyword">protected</span> $pt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($pb, $pv, $pt)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span> -&gt; pb = $pb;</span><br><span class="line">        <span class="keyword">$this</span> -&gt; pv = $pv;</span><br><span class="line">        <span class="keyword">$this</span> -&gt; pt = $pt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">log</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span> -&gt; pb;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span> -&gt; pv;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span> -&gt; pt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BMW</span> <span class="keyword">extends</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($pb, $pv, $pt)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">parent</span>::__construct($pb, $pv, $pt);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">log</span><span class="params">($val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"reload &#123;$val&#125;"</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">        <span class="keyword">parent</span>::log();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">logPv</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span> -&gt; pt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$bmw = <span class="keyword">new</span> BMW(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">$bmw -&gt; logPv();</span><br><span class="line"><span class="comment">// 打印3</span></span><br><span class="line">$bmw -&gt; log(<span class="number">666</span>);</span><br><span class="line"><span class="comment">// 打印 eload 666</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/yideng/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/yideng/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/yideng/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

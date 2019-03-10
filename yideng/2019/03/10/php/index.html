@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/yideng/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/yideng/img/favicon.ico">
+
+    <title>
+        
+        php笔记 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/yideng/css/aircloud.css">
+    <link rel="stylesheet" href="/yideng/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/yideng/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/yideng/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/yideng/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/yideng/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/yideng/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#块级作用域"><span class="toc-text">块级作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检查是否声明"><span class="toc-text">检查是否声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局变量"><span class="toc-text">全局变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组"><span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session"><span class="toc-text">session</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表单请求"><span class="toc-text">表单请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php链接数据库"><span class="toc-text">php链接数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php操作数据库"><span class="toc-text">php操作数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php-PDO"><span class="toc-text">php PDO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PDO-数据库操作"><span class="toc-text">PDO 数据库操作</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        php笔记
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-10 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/yideng/tags/#php" title="php">php</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    $a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">echo</span> $a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> $a;</span><br><span class="line"><span class="comment">// 打印 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">false</span>) &#123;</span><br><span class="line">    $a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> $a;</span><br><span class="line"><span class="comment">// 报错</span></span><br></pre></td></tr></table></figure>
+<h2 id="检查是否声明"><a href="#检查是否声明" class="headerlink" title="检查是否声明"></a>检查是否声明</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($a)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'set a;'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($b)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'unset b;'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 打印 set a;unset b;</span></span><br></pre></td></tr></table></figure>
+<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$a = <span class="string">'out'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">t</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> $a;</span><br><span class="line">&#125;</span><br><span class="line">t();</span><br><span class="line"><span class="comment">// 报错</span></span><br><span class="line"></span><br><span class="line">$a = <span class="string">'out'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">t</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">global</span> $a;</span><br><span class="line">    <span class="keyword">echo</span> $a;</span><br><span class="line">&#125;</span><br><span class="line">t();</span><br><span class="line"><span class="comment">// 打印 out</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$cars = <span class="keyword">array</span>(<span class="string">"Volvo"</span>, <span class="string">"BMW"</span>);</span><br><span class="line"><span class="keyword">echo</span> json_encode($cars);</span><br><span class="line"><span class="comment">// 打印 ["Volvo","BMW"]</span></span><br><span class="line">$name = <span class="keyword">array</span>(<span class="string">"name"</span> =&gt; <span class="string">"jqx"</span>);</span><br><span class="line"><span class="keyword">echo</span> json_encode($name);</span><br><span class="line"><span class="comment">// 打印 &#123;"name":"jqx"&#125;</span></span><br><span class="line">$cars_name = <span class="keyword">array</span>(<span class="string">"Volvo"</span>, <span class="string">"BMW"</span>, <span class="string">"name"</span> =&gt; <span class="string">"jqx"</span>);</span><br><span class="line"><span class="keyword">echo</span> json_encode($cars_name);</span><br><span class="line"><span class="comment">// 打印 &#123;"0":"Volvo","1":"BMW","name":"jqx"&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p><strong>php的session和js不同，php以浏览器为单位，js以当前页面为单位</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">session_start();</span><br><span class="line"><span class="comment">// 存储 session 数据</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_SESSION[<span class="string">'views'</span>]))</span><br><span class="line">&#123;</span><br><span class="line">    $_SESSION[<span class="string">'views'</span>]=$_SESSION[<span class="string">'views'</span>]+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    $_SESSION[<span class="string">'views'</span>]=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 检索 session 数据</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"浏览量："</span>. $_SESSION[<span class="string">'views'</span>];</span><br></pre></td></tr></table></figure>
+<h2 id="表单请求"><a href="#表单请求" class="headerlink" title="表单请求"></a>表单请求</h2><p><strong>$_GET, $_POST, $_REQUEST</strong></p>
+<p><strong>获取 application/json; 消息得使用 file_get_contents(‘php://input’);</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端测试代码</span></span><br><span class="line">(<span class="keyword">async</span>() =&gt; &#123;</span><br><span class="line"><span class="keyword">let</span> body = <span class="keyword">await</span> fetch(<span class="string">'/jqx/request.php'</span>, &#123;</span><br><span class="line">    body: <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">			admin: <span class="string">'jqx'</span>,</span><br><span class="line">			psword: <span class="string">'123456'</span></span><br><span class="line">		&#125;), <span class="comment">// must match 'Content-Type' header</span></span><br><span class="line">    headers: &#123;</span><br><span class="line">      <span class="string">'content-type'</span>: <span class="string">'application/json'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    method: <span class="string">'POST'</span>, <span class="comment">// *GET, POST, PUT, DELETE, etc.</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> json = <span class="keyword">await</span> body.json();</span><br><span class="line"><span class="built_in">console</span>.log(json);</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<h2 id="php链接数据库"><a href="#php链接数据库" class="headerlink" title="php链接数据库"></a>php链接数据库</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$servername = <span class="string">"localhost"</span>;</span><br><span class="line">$username = <span class="string">"username"</span>;</span><br><span class="line">$password = <span class="string">"password"</span>;</span><br><span class="line">$dbname = <span class="string">"test"</span>;</span><br><span class="line"></span><br><span class="line">$conn = <span class="keyword">new</span> mysqli($servername, $username, $password, $dbname);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ($conn-&gt;connect_error) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"连接失败: "</span> . $conn-&gt;connect_error);</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"连接成功"</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="php操作数据库"><a href="#php操作数据库" class="headerlink" title="php操作数据库"></a>php操作数据库</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$sql = <span class="string">"INSERT INTO user (username, email)</span></span><br><span class="line"><span class="string">VALUES ('jqx', '272670445@qq.com')"</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> ($conn -&gt; query($sql) === <span class="keyword">TRUE</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"新记录插入成功"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"Error: "</span> . $sql . <span class="string">"&lt;br&gt;"</span> . $conn-&gt;error;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">$conn -&gt; close();</span><br></pre></td></tr></table></figure>
+<h2 id="php-PDO"><a href="#php-PDO" class="headerlink" title="php PDO"></a>php PDO</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$dbms=<span class="string">'mysql'</span>;     <span class="comment">//数据库类型</span></span><br><span class="line">$host=<span class="string">'localhost'</span>; <span class="comment">//数据库主机名</span></span><br><span class="line">$dbName=<span class="string">'test'</span>;    <span class="comment">//使用的数据库</span></span><br><span class="line">$user=<span class="string">'root'</span>;      <span class="comment">//数据库连接用户名</span></span><br><span class="line">$pass=<span class="string">''</span>;          <span class="comment">//对应的密码</span></span><br><span class="line">$dsn=<span class="string">"$dbms:host=$host;dbname=$dbName"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    $dbh = <span class="keyword">new</span> PDO($dsn, $user, $pass); <span class="comment">//初始化一个PDO对象</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"连接成功&lt;br/&gt;"</span>;</span><br><span class="line"></span><br><span class="line">    $dbh = <span class="keyword">null</span>;</span><br><span class="line">&#125; <span class="keyword">catch</span> (PDOException $e) &#123;</span><br><span class="line">    <span class="keyword">die</span> (<span class="string">"Error!: "</span> . $e-&gt;getMessage() . <span class="string">"&lt;br/&gt;"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//默认这个不是长连接，如果需要数据库长连接，需要最后加一个参数：array(PDO::ATTR_PERSISTENT =&gt; true) 变成这样：</span></span><br><span class="line">$db = <span class="keyword">new</span> PDO($dsn, $user, $pass, <span class="keyword">array</span>(PDO::ATTR_PERSISTENT =&gt; <span class="keyword">true</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="PDO-数据库操作"><a href="#PDO-数据库操作" class="headerlink" title="PDO 数据库操作"></a>PDO 数据库操作</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询</span></span><br><span class="line"><span class="keyword">foreach</span> ($dbh-&gt;query(<span class="string">'SELECT * from user'</span>) <span class="keyword">as</span> $row) &#123;</span><br><span class="line">    $ret = json_encode($row);</span><br><span class="line">    <span class="keyword">echo</span>(<span class="string">"$ret&lt;/br&gt;"</span>); <span class="comment">//你可以用 echo($GLOBAL); 来看到这些值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行语句</span></span><br><span class="line">$count = $dbh-&gt;exec(<span class="string">"UPDATE user SET email = '272670445@163.com' WHERE username = 'jqx'"</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"受影响行数&#123;$count&#125;"</span></span><br></pre></td></tr></table></figure>
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/yideng/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/yideng/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/yideng/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
