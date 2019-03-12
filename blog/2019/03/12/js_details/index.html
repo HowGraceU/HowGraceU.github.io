@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/blog/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        js 小细节 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#js-不能没有分号！！"><span class="toc-text">js 不能没有分号！！</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#同时声明同名函数与定义变量"><span class="toc-text">同时声明同名函数与定义变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#给变量赋值函数，且给函数名字。"><span class="toc-text">给变量赋值函数，且给函数名字。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不能-new-es6-的函数"><span class="toc-text">不能 new es6 的函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#new-的时候，函数内的-this-指向创建的实例"><span class="toc-text">new 的时候，函数内的 this 指向创建的实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型链属性失效"><span class="toc-text">原型链属性失效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#function-的变量提升"><span class="toc-text">function 的变量提升</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        js 小细节
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-12 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><strong>此贴用来记录一些 js 的小细节（常见坑）</strong></p>
+<h3 id="js-不能没有分号！！"><a href="#js-不能没有分号！！" class="headerlink" title="js 不能没有分号！！"></a>js 不能没有分号！！</h3><p><strong>先标题档一下，js 可以没有分号，但是某些时候又不得不加分号。在使用立即执行函数，容易在开头漏掉分号，以至于 js 把上一行的返回当成了一个函数来运行。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="params">()</span> =&gt;</span> &#123;alert(<span class="number">1</span>)&#125;)() <span class="comment">// alert 1</span></span><br><span class="line">(<span class="function"><span class="params">()</span> =&gt;</span> &#123;alert(<span class="number">2</span>)&#125;)() <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure>
+<h3 id="同时声明同名函数与定义变量"><a href="#同时声明同名函数与定义变量" class="headerlink" title="同时声明同名函数与定义变量"></a>同时声明同名函数与定义变量</h3><p><strong>在同时声明函数和定义变量时，如果没有给变量赋值，则函数生效。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;&#125;; <span class="comment">// 定义函数在先</span></span><br><span class="line"><span class="keyword">var</span> foo;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(foo);</span><br><span class="line"><span class="comment">// 打印 函数foo</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo; <span class="comment">// 定义变量在先</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(foo);</span><br><span class="line"><span class="comment">// 打印 函数foo</span></span><br></pre></td></tr></table></figure>
+<h3 id="给变量赋值函数，且给函数名字。"><a href="#给变量赋值函数，且给函数名字。" class="headerlink" title="给变量赋值函数，且给函数名字。"></a>给变量赋值函数，且给函数名字。</h3><p><strong>给变量赋值函数，且给函数一个名字，在函数内部打印这个名字即指向该函数。函数内部无法给这个变量赋值，且外部无法获取这个变量。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(foo); <span class="comment">// 打印 foo 函数</span></span><br><span class="line">    foo = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(foo); <span class="comment">// 打印 foo 函数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 若重新定义了 foo 变量，贼内部的 foo 不再指向函数。</span></span><br><span class="line">    <span class="comment">// var foo = 1;</span></span><br><span class="line">    <span class="comment">// console.log(foo); // 打印1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// 报错 foo is not defined</span></span><br></pre></td></tr></table></figure>
+<h3 id="不能-new-es6-的函数"><a href="#不能-new-es6-的函数" class="headerlink" title="不能 new es6 的函数"></a>不能 new es6 的函数</h3><p><strong>所谓 es6 的函数是指对象的简写函数和箭头函数。两者在 new 的时候都会报错，</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">    foo() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> a.foo(); <span class="comment">// a.foo is not a constructor</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> foo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> foo(); <span class="comment">// foo is not a constructor</span></span><br></pre></td></tr></table></figure>
+<h3 id="new-的时候，函数内的-this-指向创建的实例"><a href="#new-的时候，函数内的-this-指向创建的实例" class="headerlink" title="new 的时候，函数内的 this 指向创建的实例"></a>new 的时候，函数内的 this 指向创建的实例</h3><p><strong>在调用 new 的时候，函数内的 this 指向创建的实例，且不能通过 bind 来改变。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">10</span>,</span><br><span class="line">    foo: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">    a: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.foo() <span class="comment">// 打印 10</span></span><br><span class="line"><span class="keyword">var</span> myFoo = obj.foo.bind(obj2);</span><br><span class="line">myFoo(); <span class="comment">// 打印 20</span></span><br><span class="line"><span class="keyword">new</span> myFoo(); <span class="comment">// 打印 undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="原型链属性失效"><a href="#原型链属性失效" class="headerlink" title="原型链属性失效"></a>原型链属性失效</h3><p><strong>当实例中定义过属性，即使是 undefined，也不会取原型链上的属性。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.a = a;</span><br><span class="line">&#125;</span><br><span class="line">foo.prototype.a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log((<span class="keyword">new</span> foo()).a); <span class="comment">// 打印 undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="function-的变量提升"><a href="#function-的变量提升" class="headerlink" title="function 的变量提升"></a>function 的变量提升</h3><p><strong>在老版本的浏览器中，声明函数会提升到当前函数作用域的顶端，在最后声明的函数在作用域内都可以使用。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">foo(); <span class="comment">// 打印 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>在支持 es5 的现代浏览器中，却是不同的结果。声明函数时，会先将定义变量（var foo）提升到<span style="color:Crimson;">函数作用域</span>的顶端，然后在<span style="color:Crimson;">块级作用域</span>顶端对函数赋值。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// foo 已经定义，打印 undefined</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(foo); <span class="comment">// foo 函数提升，打印 foo 函数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">foo2(); <span class="comment">// 报错 foo2 is not a function</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123; <span class="comment">// 不管是 true 还是 false，运行 foo2 时 foo2 还未赋值为函数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/blog/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
