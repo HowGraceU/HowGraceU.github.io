@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/blog/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        使用 async 同步处理 websocket 返回 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#确定-ws-数据"><span class="toc-text">确定 ws 数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理-message"><span class="toc-text">处理 message</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#回调函数"><span class="toc-text">回调函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#async-处理回调"><span class="toc-text">async 处理回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用事件处理函数"><span class="toc-text">使用事件处理函数</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        使用 async 同步处理 websocket 返回
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-17 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#websocket" title="websocket">websocket</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#async" title="async">async</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><strong>在使用 websocket（下文叫ws） 与交互时，使用 send 方法发送数据，监听 message 事件接受数据，以前的做法是在 message 触发时触发回调函数，而在 es6 中也可以使用 async 同步处理数据。</strong></p>
+<h2 id="确定-ws-数据"><a href="#确定-ws-数据" class="headerlink" title="确定 ws 数据"></a>确定 ws 数据</h2><p><strong>ws 不像 http，当你用 ws 发送了2条请求，当然也会收到2条响应，但是你不知道的是，哪一条响应对应哪一条请求。</strong></p>
+<p><strong>在开发时，我一般会在协议里带上 method,以此来标记响应对应的请求</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求数据</span></span><br><span class="line">&#123;</span><br><span class="line">    method: <span class="string">'getEmail'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        id: <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 响应的数据</span></span><br><span class="line">&#123;</span><br><span class="line">    method: <span class="string">'getEmail'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        email: <span class="string">'xxx@xx.com'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>不过当发送了多个相同 method 的请求还是无法区分响应对应哪一条请求，可以在协议里加上id，使其在每次发送 ws 请求时自增长，并且响应时带上这个 id。若 id 相同则为对应的响应</strong></p>
+<h2 id="处理-message"><a href="#处理-message" class="headerlink" title="处理 message"></a>处理 message</h2><h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p><strong>以前会定义一个 key 为 method，value 为对应回调函数的 json 来处理响应。这种方法就让业务逻辑中多了一层回调函数。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送</span></span><br><span class="line">ws.send(<span class="built_in">JSON</span>.stringify(</span><br><span class="line">    &#123; <span class="attr">method</span>: <span class="string">'getEmail'</span> &#125;</span><br><span class="line">));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 回调</span></span><br><span class="line"><span class="keyword">let</span> wsCb = &#123;</span><br><span class="line">    getEmail(data) &#123;</span><br><span class="line">        <span class="comment">// 回调逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> &#123;<span class="attr">data</span>: &#123;method&#125;&#125; = e;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> fn = wsCb?.[method];</span><br><span class="line">    fn &amp;&amp; fn();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="async-处理回调"><a href="#async-处理回调" class="headerlink" title="async 处理回调"></a>async 处理回调</h3><p><strong>使用 async 可以将异步改同步，并且减少回调函数的使用。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 回调</span></span><br><span class="line"><span class="keyword">let</span> wsCb = &#123;&#125;</span><br><span class="line"></span><br><span class="line">ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> data = e.data;</span><br><span class="line">    <span class="keyword">let</span> method = data.method;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> fn = wsCb?.[method];</span><br><span class="line">    <span class="keyword">delete</span> wsCb.[method];</span><br><span class="line"></span><br><span class="line">    fn &amp;&amp; fn(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> wsSend = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    ws.send(<span class="built_in">JSON</span>.stringify(data);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> methos = data.methos;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span> (res, rej) &#123;</span><br><span class="line">        wsCb[methos] = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">            res(data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主业务</span></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> req = &#123; <span class="attr">method</span>: <span class="string">'getEmail'</span> &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> res = <span class="keyword">await</span> wsSend(req);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<h3 id="使用事件处理函数"><a href="#使用事件处理函数" class="headerlink" title="使用事件处理函数"></a>使用事件处理函数</h3><p><strong>js 中有很多事件处理的库，可以用来管理自定义的事件，这里就拿 jQuery 的事件绑定来做例子（jQuery 的实现方式见之前的<a href="../../../../2019/03/04/jquery-technology-insider/">博客</a>）。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ws</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> () &#123;</span><br><span class="line">        <span class="keyword">let</span> ws = <span class="keyword">new</span> WebSocket();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">this</span>.ws = ws;</span><br><span class="line">        <span class="keyword">this</span>.initEvent();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    initEvent() &#123;</span><br><span class="line">        <span class="keyword">let</span> ws = <span class="keyword">this</span>.ws;</span><br><span class="line"></span><br><span class="line">        ws.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">        ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> data = e.data;</span><br><span class="line">            <span class="keyword">let</span> method = data.method;</span><br><span class="line"></span><br><span class="line">            $(<span class="keyword">this</span>).trigger(method, [data]);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    send(data) &#123;</span><br><span class="line">        <span class="keyword">let</span> ws = <span class="keyword">this</span>.ws;</span><br><span class="line">        <span class="keyword">let</span> method = data.method;</span><br><span class="line"></span><br><span class="line">        ws.send(data);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span> (res, rej) &#123;</span><br><span class="line">            $(<span class="keyword">this</span>).one(method, (data) =&gt; &#123;</span><br><span class="line">                res(data);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主业务</span></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> ws = <span class="keyword">new</span> ws();</span><br><span class="line">    <span class="keyword">let</span> req = &#123; <span class="attr">method</span>: <span class="string">'getEmail'</span> &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> res = <span class="keyword">await</span> ws.send(req);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/blog/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
