@@ -220,6 +220,16 @@ var mapper = {
     cn: '所有特性',
     en: 'Everything',
     example: ''
+  },
+  MediaSource: {
+    cn: '媒体扩展',
+    en: 'MediaSourceExtend',
+    example: 'window.hasOwnProperty("MediaSource")'
+  },
+  MediaBuffer: {
+    cn: '添加媒体缓存',
+    en: 'MSAppendBuffer',
+    example: 'debugger; typeof MediaSource.isTypeSupported === "function"'
   }
 };
 

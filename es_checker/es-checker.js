@@ -47,7 +47,7 @@
       Reflect: { is: "'use strict'; return ('Reflect' in global);" },
       MSE: { is: "'use strict'; return ('MediaSource' in global);" },
       MediaSource: { is: "'use strict'; return typeof MediaSource.isTypeSupported === 'function'" },
-      isTypeSupported: { is: "'use strict'; return MediaSource.isTypeSupported('video/mp4; codecs=\"avc1.42E01E,mp4a.40.2\"')" },
+      MediaBuffer: { is: "'use strict'; return MediaSource.isTypeSupported('video/mp4; codecs=\"avc1.42E01E,mp4a.40.2\"')" },
       appendBuffer: { is: "'use strict'; return typeof SourceBuffer.prototype.appendBuffer === 'function'" },
       removeBuffer: { is: "'use strict'; return typeof SourceBuffer.prototype.remove === 'function'" },
     };
@@ -125,7 +125,7 @@
       this.moduleImport = 'moduleImport';
       this.MSE = 'MSE';
       this.MediaSource = 'MediaSource';
-      this.isTypeSupported = 'isTypeSupported';
+      this.MediaBuffer = 'MediaBuffer';
       this.appendBuffer = 'appendBuffer';
       this.removeBuffer = 'removeBuffer';
     };

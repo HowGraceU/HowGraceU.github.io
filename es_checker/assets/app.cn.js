@@ -43,6 +43,8 @@ runSuite('Class', ['class', 'objectSuper', 'extendNatives']);
 
 runSuite('Module', ['moduleExport', 'moduleImport']);
 
+runSuite('MSE', ['MediaSource', 'MediaBuffer']);
+
   function runSuite(title, testArray){
     var divSet = document.querySelector('div[data-role="collapsible-set"]');
     var div = document.createElement("div");
