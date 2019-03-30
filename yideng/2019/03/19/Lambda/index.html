@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/yideng/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/yideng/img/favicon.ico">
+
+    <title>
+        
+        函数式编程 - 函子 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/yideng/css/aircloud.css">
+    <link rel="stylesheet" href="/yideng/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/yideng/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/yideng/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/yideng/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/yideng/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/yideng/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#容器"><span class="toc-text">容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Maybe"><span class="toc-text">Maybe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Either"><span class="toc-text">Either</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO"><span class="toc-text">IO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monad"><span class="toc-text">Monad</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        函数式编程 - 函子
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-19 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/yideng/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/yideng/tags/#lambda" title="lambda">lambda</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><strong>函数式编程通过管道把数据在一系列纯函数间传递。但是，控制流（control flow）、异常处理（error handling）、异步操作（asynchronous actions）和状态（state）呢？还有更棘手的作用（effects）呢？我们都将借助函子帮我们完成。</strong></p>
+<p><strong>函子是函数式编程中最重要的数据类型，也是基本的运算单位和功能单位。</strong></p>
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p><strong>我们创建一个容器，这个容器就职于装载值，并且不会向容器添加新属性或者方法。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> (value) &#123;</span><br><span class="line">        <span class="keyword">this</span>.__value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">of</span>(value) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">this</span>(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    map(f) &#123;</span><br><span class="line">        <span class="keyword">return</span> Container.of(f(<span class="keyword">this</span>.__value));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> concat = <span class="function"><span class="params">x</span> =&gt;</span> y =&gt; y.concat(x);</span><br><span class="line"><span class="keyword">let</span> prop = <span class="function"><span class="params">x</span> =&gt;</span> y =&gt; y[x];</span><br><span class="line"></span><br><span class="line">Container.of(<span class="string">"bombs"</span>) <span class="comment">// Container('bombs')</span></span><br><span class="line">    .map(concat(<span class="string">' away'</span>)) <span class="comment">// Container('bombs away')</span></span><br><span class="line">    .map(prop(<span class="string">'length'</span>)) <span class="comment">// Container(10)</span></span><br></pre></td></tr></table></figure>
+<p><strong>这样我们就能够在不离开 Container 的情况下操作容器里面的值，并且这很函数式。</strong></p>
+<h2 id="Maybe"><a href="#Maybe" class="headerlink" title="Maybe"></a>Maybe</h2><p><strong>错误处理时，可以使用 Maybe 函子</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Maybe</span> <span class="keyword">extends</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> (value) &#123;</span><br><span class="line">        <span class="keyword">super</span>(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isNothing() &#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">this</span>.__value === <span class="literal">null</span> || <span class="keyword">this</span>.__value === <span class="literal">undefined</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    map(f) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.isNothing() ? Maybe.of(<span class="literal">null</span>) : Maybe.of(f);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> retNull = <span class="function"><span class="params">()</span> =&gt;</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">Maybe.of(<span class="string">"bombs"</span>) <span class="comment">// Maybe('bombs')</span></span><br><span class="line">    .map(concat(<span class="string">' away'</span>)) <span class="comment">// Maybe('bombs away')</span></span><br><span class="line">    .map(retNull) <span class="comment">// Maybe(null)</span></span><br><span class="line">    .map(prop(<span class="string">'length'</span>)) <span class="comment">// 当检测到 value 为null，不运行 prop 函数，避免函数运行时报错，返回 Maybe(null)</span></span><br></pre></td></tr></table></figure>
+<h2 id="Either"><a href="#Either" class="headerlink" title="Either"></a>Either</h2><p><strong>数学中没有 if…else，我们可以用 either 纯函数来处理 if…else</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Either</span> <span class="keyword">extends</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(left, right) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.left = left;</span><br><span class="line">        <span class="keyword">this</span>.right = right;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">of</span>(left, right) &#123;</span><br><span class="line">        <span class="keyword">return</span>  <span class="keyword">new</span> <span class="keyword">this</span>(left, right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    map(f) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.right ? </span><br><span class="line">            Either.of(<span class="keyword">this</span>.left, f(<span class="keyword">this</span>.right)) :</span><br><span class="line">            Either.of(f(<span class="keyword">this</span>.left), <span class="keyword">this</span>.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> lenLtNum = <span class="function"><span class="params">num</span> =&gt;</span> str =&gt; str.length &lt; num;</span><br><span class="line"><span class="keyword">let</span> lenLt4 = lenLtNum(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">Either.of(<span class="string">"jqx"</span>, <span class="string">"bombs"</span>) <span class="comment">// Either("jqx", "bombs")</span></span><br><span class="line">    .map(lenLt4) <span class="comment">// Either("jqx", false)</span></span><br><span class="line">    .map(concat(<span class="string">' away'</span>)) <span class="comment">// Either("jqx away", false)</span></span><br><span class="line">    .map(prop(<span class="string">'length'</span>)) <span class="comment">// Either(8, false)</span></span><br></pre></td></tr></table></figure>
+<h2 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h2><p><strong>我们有很多的不纯的操作，如取 storage 缓存，向后台请求接口，我们把这些函数包装在IO函子中，让调用者替我们承当不纯的部分。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IO</span> <span class="keyword">extends</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(f) &#123;</span><br><span class="line">        <span class="keyword">super</span>(f);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    map(f) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> IO(_.compose(f, <span class="keyword">this</span>.__value));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> retWin = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">window</span>;</span><br><span class="line"><span class="keyword">let</span> getInnerWidth = <span class="function"><span class="params">win</span> =&gt;</span> win.innerWidth;</span><br><span class="line"><span class="keyword">let</span> unsafeWidth = IO.of(retWin).map(getInnerWidth);</span><br><span class="line"></span><br><span class="line">unsafeWidth.__value(); <span class="comment">// 调用不纯函数得到窗口宽度</span></span><br></pre></td></tr></table></figure>
+<h2 id="Monad"><a href="#Monad" class="headerlink" title="Monad"></a>Monad</h2><p><strong>下面有两个不纯的函数，但是把他们包装一下，每次都返回 IO 函子，包装他们的函数是一个纯函数。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> readFile = <span class="function"><span class="keyword">function</span>(<span class="params">filename</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> IO(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> fs.readFileSync(filename, <span class="string">'utf-8'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> print = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> IO(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(x);</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getUser = readFile(<span class="string">'./user.txt'</span>) <span class="comment">// IO&#123; val: f =&gt; user &#125;</span></span><br><span class="line">                .map(print) <span class="comment">// IO&#123; val: f =&gt; IO &#123; f =&gt; user &#125;&#125;</span></span><br><span class="line"></span><br><span class="line">getUser.__value().__value(); <span class="comment">// 拿到 user</span></span><br></pre></td></tr></table></figure>
+<p><strong>若 IO 函子 map 了一个不纯的函数，则会得到一个 IO 里面包装 IO 的函子，提供一个 Monad 函数处理这种情况。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Monad</span> <span class="keyword">extends</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">    join() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.__value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    flatMap(f) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.map(f).join();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IO</span> <span class="keyword">extends</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">    map(f) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> IO(_.compose(f, <span class="keyword">this</span>.__value));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    flatMap(f) &#123;</span><br><span class="line">        <span class="comment">// 这里要扩展父的 flatMap 是因为 IO 函子里面放的是函数，</span></span><br><span class="line">        <span class="comment">// 得将之运行一下，返回输出的 IO 扁平化，若函子里面放的是纯数据则不需要扩展</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.flatMap(f)();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getUser = readFile(<span class="string">'./user.txt'</span>) <span class="comment">// IO&#123; val: f =&gt; user &#125;</span></span><br><span class="line">                .flatMap(print) <span class="comment">// IO&#123; val: f =&gt; IO &#123; f =&gt; user &#125;&#125;</span></span><br><span class="line"></span><br><span class="line">getUser.__value(); <span class="comment">// 拿到 user</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getName = prop(<span class="string">'name'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getUserName = readFile(<span class="string">'./user.txt'</span>) <span class="comment">// IO&#123; val: f =&gt; user &#125;</span></span><br><span class="line">                .flatMap(print) <span class="comment">// IO&#123; val: f =&gt; IO &#123; f =&gt; user &#125;&#125;</span></span><br><span class="line">                .map(getName)</span><br><span class="line"></span><br><span class="line">getUserName.__value(); <span class="comment">// 拿到 userName</span></span><br></pre></td></tr></table></figure>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/yideng/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/yideng/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/yideng/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

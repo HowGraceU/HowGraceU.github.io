@@ -147,7 +147,8 @@
         <p><strong>在一个开发web桌面应用的项目中，使用了axios向服务器发送请求，结果报了跨域请求的错误。页面代码大致如下：</strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"./node_modules/axios/dist/axios.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">        axios.post(<span class="string">'http://127.0.0.1:3000/getDate'</span>, &#123;</span><br><span class="line">            a: <span class="number">1</span></span><br><span class="line">        &#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <p><img src="../../../../img/axios-CORS/1.png" alt="跨域报错"></p>
-<p><strong>反复查看后台代码，明明是已经加上了跨域的头部Access-Control-Allow-Origin，可是还是请求失败。</strong><br><strong>代码倒是看不出任何问题，于是猜想是axios内部框架做了什么鬼祟，使用原生的XHR对象进行调试。</strong></p>
+<p><strong>反复查看后台代码，明明是已经加上了跨域的头部Access-Control-Allow-Origin，可是还是请求失败。</strong></p>
+<p><strong>代码倒是看不出任何问题，于是猜想是axios内部框架做了什么鬼祟，使用原生的XHR对象进行调试。</strong></p>
 <p><img src="../../../../img/axios-CORS/2.png" alt="原生XHR跨域"></p>
 <p><strong>果然请求到了，并且看到返回头里面带上了允许跨域头。仔细比对两次请求发现，axios发的请求的method竟是OPTIONS，这是什么，html难道不是只有GET，POST吗！？翻查<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">http mdn</a></strong></p>
 <h2 id="xhr跨域请求"><a href="#xhr跨域请求" class="headerlink" title="xhr跨域请求"></a>xhr跨域请求</h2><p><strong>出于安全原因，浏览器限制从脚本内发起的跨源HTTP请求。 例如，XMLHttpRequest和Fetch API遵循同源策略。 这意味着使用这些API的Web应用程序只能从加载应用程序的同一个域请求HTTP资源，除非使用CORS头文件。以下三种情况下跨域请求的结果皆不相同。</strong></p>

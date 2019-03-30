@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/yideng/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/yideng/img/favicon.ico">
+
+    <title>
+        
+        函数式编程 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/yideng/css/aircloud.css">
+    <link rel="stylesheet" href="/yideng/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/yideng/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/yideng/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/yideng/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/yideng/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/yideng/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#纯函数"><span class="toc-text">纯函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#纯函数的优点"><span class="toc-text">纯函数的优点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可缓存性"><span class="toc-text">可缓存性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可移植性"><span class="toc-text">可移植性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可测试性"><span class="toc-text">可测试性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数柯里化"><span class="toc-text">函数柯里化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码组合"><span class="toc-text">代码组合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pointfree"><span class="toc-text">pointfree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#debug"><span class="toc-text">debug</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#尾递归"><span class="toc-text">尾递归</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        函数式编程
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-19 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/yideng/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/yideng/tags/#functional" title="functional">functional</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <script src="https://cdn.bootcss.com/lodash.js/4.17.12-pre/lodash.js"></script>
+
+<p><strong>js中函数是一等公民，这句话意味着函数和其他数据类型一样，可以赋值给其他变量，也可以作为参数传入另一个函数，或者作为别的函数的返回值。</strong></p>
+<h1 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h1><p><strong>对于相同的输入，永远会得到相同的输出，而且没有任何可观察的副作用，也不依赖外部环境的函数称之为纯函数</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// slice 是纯函数，固定输入得到固定输出，没有副作用</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>) <span class="comment">// [1, 2, 3] xs不变</span></span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">3</span>) <span class="comment">// [1, 2, 3] xs不变</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>) === xs.splice(<span class="number">0</span>, <span class="number">3</span>) <span class="comment">// [1, 2, 3] xs变成[4, 5]</span></span><br><span class="line">xs.splice(<span class="number">0</span>, <span class="number">3</span>) === xs.splice(<span class="number">0</span>, <span class="number">3</span>) <span class="comment">// [4, 5] xs变成[]</span></span><br></pre></td></tr></table></figure>
+<h2 id="纯函数的优点"><a href="#纯函数的优点" class="headerlink" title="纯函数的优点"></a>纯函数的优点</h2><h3 id="可缓存性"><a href="#可缓存性" class="headerlink" title="可缓存性"></a>可缓存性</h3><p><strong>由于固定输入得到固定输出，所以可以将函数结果缓存起来。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">'loadsh'</span>;</span><br><span class="line"><span class="keyword">const</span> sin = _.memorize(<span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">Math</span>.sin(x));</span><br><span class="line"></span><br><span class="line">sin(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二次计算有了换成。速度会变快</span></span><br><span class="line">sin(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="可移植性"><a href="#可移植性" class="headerlink" title="可移植性"></a>可移植性</h3><p><strong>命令式编程中“典型”的方法和过程都深深地根植于它们所在的环境中，通过状态、依赖和有效作用（available effects）达成；纯函数与此相反，它与环境无关，只要我们愿意，可以在任何地方运行它。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不纯的</span></span><br><span class="line"><span class="keyword">var</span> signUp = <span class="function"><span class="keyword">function</span>(<span class="params">attrs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> user = saveUser(attrs);</span><br><span class="line">  welcomeUser(user);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> saveUser = <span class="function"><span class="keyword">function</span>(<span class="params">attrs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> user = Db.save(attrs);</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> welcomeUser = <span class="function"><span class="keyword">function</span>(<span class="params">user</span>) </span>&#123;</span><br><span class="line">    Email(user, ...);</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 纯的</span></span><br><span class="line"><span class="keyword">var</span> signUp = <span class="function"><span class="keyword">function</span>(<span class="params">Db, Email, attrs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> user = saveUser(Db, attrs);</span><br><span class="line">    welcomeUser(Email, user);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> saveUser = <span class="function"><span class="keyword">function</span>(<span class="params">Db, attrs</span>) </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> welcomeUser = <span class="function"><span class="keyword">function</span>(<span class="params">Email, user</span>) </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="可测试性"><a href="#可测试性" class="headerlink" title="可测试性"></a>可测试性</h3><p><strong>纯函数让测试更加容易。只需简单地给函数一个输入，然后断言输出就好了。</strong></p>
+<h1 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h1><p><strong>传给函数部分参数，返回一个函数处理剩下的参数。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> comparedAge = <span class="function">(<span class="params">min, age</span>) =&gt;</span> min &lt; age;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> initMinAge = <span class="function">(<span class="params">min</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">age</span>) =&gt;</span> comparedAge(min, age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> checkAge19 = initMinAge(<span class="number">19</span>);</span><br><span class="line"></span><br><span class="line">checkAge19(<span class="number">15</span>); <span class="comment">// false</span></span><br><span class="line">checkAge19(<span class="number">23</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p><strong>以下为个人查阅 lodash 源码，制作的简化版的 curry</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> curry = <span class="function">(<span class="params">func, partials, arity=func.length</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> length = <span class="built_in">arguments</span>.length;</span><br><span class="line">        <span class="keyword">let</span> args = <span class="built_in">Array</span>(length);</span><br><span class="line">        <span class="keyword">let</span> index = length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (index--) &#123;</span><br><span class="line">            args[index] = <span class="built_in">arguments</span>[index];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (partials) &#123;</span><br><span class="line">            args = args.concat(partials);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (length &lt; arity) &#123;</span><br><span class="line">            <span class="keyword">return</span> curry(func, args, arity - length);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> func.apply(<span class="built_in">window</span>, args.reverse());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> wrapper;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> abc = <span class="function"><span class="keyword">function</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [a, b, c];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = curry(abc);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)); <span class="comment">// [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = a(<span class="number">4</span>);</span><br><span class="line"><span class="built_in">console</span>.log(b(<span class="number">5</span>)(<span class="number">6</span>)); <span class="comment">// [4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = a(<span class="number">7</span>)(<span class="number">8</span>);</span><br><span class="line"><span class="built_in">console</span>.log(c(<span class="number">9</span>)); <span class="comment">// [7, 8, 9]</span></span><br></pre></td></tr></table></figure>
+<h1 id="代码组合"><a href="#代码组合" class="headerlink" title="代码组合"></a>代码组合</h1><p><strong>f 和 g 都是函数，x 是在它们之间通过“管道”传输的值。特性有结合律，符合结合律意味着不管你是把 g 和 h 分到一组，还是把 f 和 g 分到一组都不重要。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> compose = <span class="function"><span class="keyword">function</span>(<span class="params">f,g</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> f(g(x));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 结合律（associativity）</span></span><br><span class="line"><span class="keyword">var</span> associative = compose(f, compose(g, h)) == compose(compose(f, g), h);</span><br><span class="line"><span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="pointfree"><a href="#pointfree" class="headerlink" title="pointfree"></a>pointfree</h2><p><strong>函数无须提及将要操作的数据是什么样的。一等公民的函数、柯里化（curry）以及组合协作起来非常有助于实现这种模式。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 非 pointfree，因为提到了数据：word</span></span><br><span class="line"><span class="keyword">var</span> snakeCase = <span class="function"><span class="keyword">function</span> (<span class="params">word</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> word.toLowerCase().replace(<span class="regexp">/\s+/ig</span>, <span class="string">'_'</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// pointfree</span></span><br><span class="line"><span class="keyword">var</span> replace = <span class="function"><span class="keyword">function</span> (<span class="params">reg, replaceStr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> str.replace(reg, replaceStr);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> toLowerCase = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> str.toLowerCase();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> snakeCase = compose(replace(<span class="regexp">/\s+/ig</span>, <span class="string">'_'</span>), toLowerCase);</span><br><span class="line"></span><br><span class="line">snakeCase(<span class="string">'A B'</span>); <span class="comment">// a_b</span></span><br></pre></td></tr></table></figure>
+<h2 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h2><p><strong>如果在 debug 组合的时候遇到了困难，那么可以使用下面这个实用的，但是不纯的 trace 函数来追踪代码的执行情况。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> trace = curry(<span class="function"><span class="keyword">function</span>(<span class="params">tag, x</span>)</span>&#123;</span><br><span class="line">  	<span class="built_in">console</span>.log(tag, x);</span><br><span class="line">  	<span class="keyword">return</span> x;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> snakeCase = compose(replace(<span class="regexp">/\s+/ig</span>, <span class="string">'_'</span>), compose(trace(<span class="string">'[snakeCase]'</span>), toLowerCase));</span><br><span class="line"></span><br><span class="line">snakeCase(<span class="string">'A B'</span>);</span><br><span class="line"><span class="comment">// log  [snakeCase] a b</span></span><br><span class="line"><span class="comment">// 返回 a_b</span></span><br></pre></td></tr></table></figure>
+<h1 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h1><p><strong>尾递归的判断标准是函数的最后一步是否调用自身。尾递归调用栈永远都是更新当前的栈帧，这样就避免了爆栈的危险，而浏览器并未支持，原因有 1.在引擎曾消除递归是隐式行为，程序员意识不到。2. 堆栈信息丢失导致开发者难以调试。我们可以将递归写成while。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传统递归</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> n + sum(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(<span class="number">5</span>);</span><br><span class="line"><span class="comment">// 调用栈</span></span><br><span class="line">sum(<span class="number">5</span>)</span><br><span class="line">(<span class="number">5</span> + sum(<span class="number">4</span>))</span><br><span class="line">(<span class="number">5</span> + (<span class="number">4</span> + sum(<span class="number">3</span>)))</span><br><span class="line">(<span class="number">5</span> + (<span class="number">4</span> + (<span class="number">3</span> + sum(<span class="number">2</span>))))</span><br><span class="line">(<span class="number">5</span> + (<span class="number">4</span> + (<span class="number">3</span> + (<span class="number">2</span> + sum(<span class="number">1</span>)))))</span><br><span class="line">(<span class="number">5</span> + (<span class="number">4</span> + (<span class="number">3</span> + (<span class="number">2</span> + <span class="number">1</span>))))</span><br><span class="line">(<span class="number">5</span> + (<span class="number">4</span> + (<span class="number">3</span> + <span class="number">3</span>)))</span><br><span class="line">(<span class="number">5</span> + (<span class="number">4</span> + <span class="number">6</span>))</span><br><span class="line">(<span class="number">5</span> + <span class="number">10</span>)</span><br><span class="line"><span class="number">15</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 尾递归调用</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">n, total = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> n + total;</span><br><span class="line">    <span class="keyword">return</span> sum(n - <span class="number">1</span>, n + total);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(<span class="number">5</span>);</span><br><span class="line"><span class="comment">// 调用栈，每次调用栈都指向新返回的函数</span></span><br><span class="line">sum(<span class="number">5</span>)</span><br><span class="line">sum(<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">sum(<span class="number">3</span>, <span class="number">9</span>)</span><br><span class="line">sum(<span class="number">2</span>, <span class="number">12</span>)</span><br><span class="line">sum(<span class="number">1</span>, <span class="number">14</span>)</span><br><span class="line"><span class="number">15</span></span><br></pre></td></tr></table></figure>
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/yideng/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/yideng/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/yideng/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
