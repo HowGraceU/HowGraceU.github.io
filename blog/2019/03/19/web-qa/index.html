@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/blog/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        不会测试的UI不是好前端 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#单元测试"><span class="toc-text">单元测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能测试"><span class="toc-text">性能测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全测试"><span class="toc-text">安全测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#功能测试"><span class="toc-text">功能测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟用户操作"><span class="toc-text">模拟用户操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后台服务测试"><span class="toc-text">后台服务测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UI测试"><span class="toc-text">UI测试</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        不会测试的UI不是好前端
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-19 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#qa" title="qa">qa</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><strong>自 js 崛起，GitHub 上有越来越多的开源项目，而每个项目的根目录下必然会有 test，用来做项目的自测。js 已经入侵测试领域了。</strong></p>
+<p><strong>本贴记录一些常用的测试库，和基本使用方法。</strong></p>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p><strong>使用 karma、phantomjs（无头浏览器） 进行单元测试（小函数、功能），并使用 karma-coverage 生成报表。</strong></p>
+<p><strong>使用 npm 安装 karma，karma-coverage，jasmine-core，karma-jasmine，karma-phantomjs-launcher。然后调用 karma init 进行初始化，在根目录下得到 karma.conf.js 文件。配置如下：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    basePath: <span class="string">''</span>,</span><br><span class="line">    frameworks: [<span class="string">'jasmine'</span>],</span><br><span class="line">    files: [</span><br><span class="line">      <span class="string">'./tests/unit/*.js'</span>,</span><br><span class="line">      <span class="string">'./tests/unit/*.spec.js'</span></span><br><span class="line">    ],</span><br><span class="line">    exclude: [</span><br><span class="line">    ],</span><br><span class="line">    preprocessors: &#123;</span><br><span class="line">      <span class="string">'./tests/unit/**/*.js'</span>: [<span class="string">'coverage'</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    reporters: [<span class="string">'progress'</span>, <span class="string">'coverage'</span>],</span><br><span class="line">    coverageReporter: &#123;</span><br><span class="line">      type: <span class="string">'html'</span>,</span><br><span class="line">      dir: <span class="string">'./docs/coverage/'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    port: <span class="number">9876</span>,</span><br><span class="line">    colors: <span class="literal">true</span>,</span><br><span class="line">    logLevel: config.LOG_INFO,</span><br><span class="line">    autoWatch: <span class="literal">false</span>,</span><br><span class="line">    browsers: [<span class="string">'PhantomJS'</span>],</span><br><span class="line">    singleRun: <span class="literal">true</span>,</span><br><span class="line">    concurrency: <span class="literal">Infinity</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>/tests/unit/index.js 文件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (num === <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> num + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>/tests/unit/index.spec.js 文件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'加一函数测试'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    it(<span class="string">'加一函数是否可用'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// expect(add(1)).toBe(1);</span></span><br><span class="line">        expect(add(<span class="number">2</span>)).toBe(<span class="number">3</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>运行 karma start 得到如下报表，其中得到测试结果以及提醒测试js中有部分代码没有覆盖到。</strong></p>
+<p><img src="../../../../img/web_qa/unit_test_reporters.png" alt="unit test reporters"></p>
+<h2 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h2><h2 id="安全测试"><a href="#安全测试" class="headerlink" title="安全测试"></a>安全测试</h2><h2 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h2><h3 id="模拟用户操作"><a href="#模拟用户操作" class="headerlink" title="模拟用户操作"></a>模拟用户操作</h3><p><strong>使用 selenium-webdriver 模拟用户操作。</strong></p>
+<p><strong>用 npm 安装 selenium-webdriver，并在 selenium-webdriver 的npm 网站上下载相关浏览器的 driver，解压在根目录下。</strong></p>
+<p><strong>以下是调用 selenium-webdriver 的官方例子，node运行如下js，测试结果在终端输出。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; Builder, By, Key, until &#125; = <span class="built_in">require</span>(<span class="string">'selenium-webdriver'</span>);</span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> driver = <span class="keyword">await</span> <span class="keyword">new</span> Builder().forBrowser(<span class="string">'chrome'</span>).build();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">await</span> driver.get(<span class="string">'http://www.baidu.com'</span>);</span><br><span class="line">        <span class="keyword">await</span> driver.findElement(By.name(<span class="string">'wd'</span>)).sendKeys(<span class="string">'webdriver'</span>, Key.ENTER);</span><br><span class="line">        <span class="keyword">await</span> driver.wait(until.titleIs(<span class="string">'webdriver_百度搜索'</span>), <span class="number">3000</span>);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">await</span> driver.quit();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p><img src="../../../../img/web_qa/e2e_test.png" alt="e2e test"></p>
+<h3 id="后台服务测试"><a href="#后台服务测试" class="headerlink" title="后台服务测试"></a>后台服务测试</h3><p><strong>使用 mocha 进行后台接口数据测试。</strong></p>
+<p><strong>使用 npm 安装 express（node服务库），mocha，mochawesome（生成报表），supertest（代理服务）</strong></p>
+<p><strong>app.js 文件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/data'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        name: <span class="string">'jqx'</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'server start at 3000'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = app;</span><br></pre></td></tr></table></figure>
+<p><strong>app.spec.js 文件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> superagent = <span class="built_in">require</span>(<span class="string">'supertest'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">require</span>(<span class="string">'./app.js'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">req</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> superagent(app.listen());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'node 接口测试'</span>, () =&gt; &#123;</span><br><span class="line">    it(<span class="string">'data 接口测试'</span>, done =&gt; &#123;</span><br><span class="line">        req()</span><br><span class="line">            .get(<span class="string">'/data'</span>)</span><br><span class="line">            .expect(<span class="number">200</span>)</span><br><span class="line">            .expect(<span class="string">'Content-Type'</span>, /json/)</span><br><span class="line">            .end(<span class="function">(<span class="params">err, res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                    done(err);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (res.body.name === <span class="string">'jqx'</span>) &#123;</span><br><span class="line">                    done();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    done(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'名字错误'</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>根目录下创建 mochaRunner.js 文件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Mocha = <span class="built_in">require</span>(<span class="string">'mocha'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> mocha = <span class="keyword">new</span> Mocha(&#123;</span><br><span class="line">    reporter: <span class="string">'mochawesome'</span>,</span><br><span class="line">    reporterOptions: &#123;</span><br><span class="line">        reportDir: <span class="string">'./docs/customReportFilename'</span>,</span><br><span class="line">        <span class="comment">// quiet: true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">mocha.addFile(<span class="string">'app.spec.js'</span>);</span><br><span class="line">mocha.run(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    process.exit();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>node 运行 mochaRunner.js，并生成报表</strong></p>
+<p><img src="../../../../img/web_qa/mocah_test.png" alt="mocha test"></p>
+<h2 id="UI测试"><a href="#UI测试" class="headerlink" title="UI测试"></a>UI测试</h2><p><strong>使用 backstopjs 进行 ui 测试。</strong></p>
+<p><strong>使用 npm 安装 backstopjs。安装完后运行 backstop init 命令初始化。</strong></p>
+<p><strong>配置根目录下的 backstop.json</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"id"</span>: <span class="string">"taobao"</span>,</span><br><span class="line">  <span class="string">"viewports"</span>: [</span><br><span class="line">    &#123; <span class="comment">// 测试网页的尺寸</span></span><br><span class="line">      <span class="string">"label"</span>: <span class="string">"phone"</span>,</span><br><span class="line">      <span class="string">"width"</span>: <span class="number">320</span>,</span><br><span class="line">      <span class="string">"height"</span>: <span class="number">480</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"label"</span>: <span class="string">"tablet"</span>,</span><br><span class="line">      <span class="string">"width"</span>: <span class="number">1024</span>,</span><br><span class="line">      <span class="string">"height"</span>: <span class="number">768</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"onBeforeScript"</span>: <span class="string">"puppet/onBefore.js"</span>,</span><br><span class="line">  <span class="string">"onReadyScript"</span>: <span class="string">"puppet/onReady.js"</span>,</span><br><span class="line">  <span class="string">"scenarios"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"label"</span>: <span class="string">"taobao index"</span>,</span><br><span class="line">      <span class="string">"cookiePath"</span>: <span class="string">"backstop_data/engine_scripts/cookies.json"</span>, <span class="comment">// 如果需要cookie则进行配置</span></span><br><span class="line">      <span class="string">"url"</span>: <span class="string">"https://h5.m.taobao.com/?sprefer=sypc00"</span>, <span class="comment">// 测试网页的地址</span></span><br><span class="line">      <span class="string">"referenceUrl"</span>: <span class="string">""</span>,</span><br><span class="line">      <span class="string">"readyEvent"</span>: <span class="string">""</span>,</span><br><span class="line">      <span class="string">"readySelector"</span>: <span class="string">""</span>,</span><br><span class="line">      <span class="string">"delay"</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="string">"hideSelectors"</span>: [],</span><br><span class="line">      <span class="string">"removeSelectors"</span>: [],</span><br><span class="line">      <span class="string">"hoverSelector"</span>: <span class="string">""</span>,</span><br><span class="line">      <span class="string">"clickSelector"</span>: <span class="string">""</span>,</span><br><span class="line">      <span class="string">"postInteractionWait"</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="string">"selectors"</span>: [],</span><br><span class="line">      <span class="string">"selectorExpansion"</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="string">"expect"</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="string">"misMatchThreshold"</span> : <span class="number">0.1</span>,</span><br><span class="line">      <span class="string">"requireSameDimensions"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"paths"</span>: &#123;</span><br><span class="line">    <span class="string">"bitmaps_reference"</span>: <span class="string">"backstop_data/bitmaps_reference"</span>, <span class="comment">// ui 原图路径</span></span><br><span class="line">    <span class="string">"bitmaps_test"</span>: <span class="string">"backstop_data/bitmaps_test"</span>,</span><br><span class="line">    <span class="string">"engine_scripts"</span>: <span class="string">"backstop_data/engine_scripts"</span>,</span><br><span class="line">    <span class="string">"html_report"</span>: <span class="string">"./docs/backstop_data/html_report"</span>, <span class="comment">// 测试报表生成地址</span></span><br><span class="line">    <span class="string">"ci_report"</span>: <span class="string">"./docs/backstop_data/ci_report"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"report"</span>: [<span class="string">"browser"</span>],</span><br><span class="line">  <span class="string">"engine"</span>: <span class="string">"puppeteer"</span>,</span><br><span class="line">  <span class="string">"engineOptions"</span>: &#123;</span><br><span class="line">    <span class="string">"args"</span>: [<span class="string">"--no-sandbox"</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"asyncCaptureLimit"</span>: <span class="number">5</span>,</span><br><span class="line">  <span class="string">"asyncCompareLimit"</span>: <span class="number">50</span>,</span><br><span class="line">  <span class="string">"debug"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"debugWindow"</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行 backstop test 进行测试。生成报表中，像素点不同之处都会标红，如下</strong></p>
+<p><img src="../../../../img/web_qa/backstop_test.png" alt="backstop test"></p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/blog/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
