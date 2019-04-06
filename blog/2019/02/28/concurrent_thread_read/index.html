@@ -90,7 +90,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#断点进入-create-函数查看"><span class="toc-text">断点进入 create 函数查看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看-devtool-performace"><span class="toc-text">查看 devtool performace</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、断点进入-create-函数查看"><span class="toc-text">一、断点进入 create 函数查看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、查看-devtool-performace"><span class="toc-text">二、查看 devtool performace</span></a></li></ol>
 </div>
     
 </div>
@@ -142,12 +142,12 @@
     </div>
     <div class="post-content ">
         <p><strong>最近看到了一个帮助没有 Worker 的浏览器开启多进程处理的 js 库 ———— <a href="https://github.com/HowGraceU/Concurrent.Thread.js" target="_blank" rel="noopener">Concurrent.Thread.js</a>。</strong><br><strong>这个库使古老的单进程的 js 拥有了多进程的能力，这瞬间使我产生了浓厚的兴趣，于是决定去探究一下这个 js 到底是怎么执行的。</strong></p>
-<h3 id="断点进入-create-函数查看"><a href="#断点进入-create-函数查看" class="headerlink" title="断点进入 create 函数查看"></a>断点进入 create 函数查看</h3><p><strong>最直接的方法便是通过断点，进入改 js 的起点，一步一步得深入。</strong></p>
+<h3 id="一、断点进入-create-函数查看"><a href="#一、断点进入-create-函数查看" class="headerlink" title="一、断点进入 create 函数查看"></a>一、断点进入 create 函数查看</h3><p><strong>最直接的方法便是通过断点，进入改 js 的起点，一步一步得深入。</strong></p>
 <p><img src="../../../../img/concurrent_thread_read/debug1.png" alt="debug1"></p>
 <p><strong>concurrentJs 似乎将传入的函数解析成立 AST</strong></p>
 <p><img src="../../../../img/concurrent_thread_read/debug2.png" alt="debug2"></p>
 <p><strong>由于之后的代码看得一脸蒙，决定换一种方法去探究该 js</strong></p>
-<h3 id="查看-devtool-performace"><a href="#查看-devtool-performace" class="headerlink" title="查看 devtool performace"></a>查看 devtool performace</h3><p><strong>谷歌浏览器提供了 performace 用来抓页面的一段时间内 js 的运行情况和页面渲染的情况，这里也可以用这个工具来监听一下 concurrentJs 的运行情况。</strong></p>
+<h3 id="二、查看-devtool-performace"><a href="#二、查看-devtool-performace" class="headerlink" title="二、查看 devtool performace"></a>二、查看 devtool performace</h3><p><strong>谷歌浏览器提供了 performace 用来抓页面的一段时间内 js 的运行情况和页面渲染的情况，这里也可以用这个工具来监听一下 concurrentJs 的运行情况。</strong></p>
 <p><img src="../../../../img/concurrent_thread_read/performace1.png" alt="performace1"></p>
 <p><strong>从图中可以看出，js 的运行情况似乎是一个循环，图中蓝色部分是 Parse HTML，紫色部分是 Layout，而蓝色框框框中的部分，是一个 timeout 定时器。</strong><br><strong>点击 timeout 部分可以定位到源码行。</strong></p>
 <p><img src="../../../../img/concurrent_thread_read/performace2.png" alt="performace2"></p>

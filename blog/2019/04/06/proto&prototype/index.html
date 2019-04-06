@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/blog/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        __proto__ 和 prototype - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、proto"><span class="toc-text">一、proto</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-getPrototypeOf"><span class="toc-text">Object.getPrototypeOf</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、prototype"><span class="toc-text">二、prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、网上神图"><span class="toc-text">三、网上神图</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        __proto__ 和 prototype
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-06 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#prototype" title="prototype">prototype</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><strong>js 中的面向对象有非常多的版本，知道 es6 之后才统一规范，而且实例中有一些属性能帮我们找到实例的构造函数。</strong></p>
+<h2 id="一、proto"><a href="#一、proto" class="headerlink" title="一、proto"></a>一、<strong>proto</strong></h2><p><strong><strong>proto</strong> 是一个对象实例的属性，而对象实例是通过 new 关键字返回的，我们先来看看使用 js 来模拟一个 new 关键字。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myNew</span>(<span class="params">fun</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span>(fun.prototype !== <span class="literal">null</span>)&#123;</span><br><span class="line">    <span class="comment">// 将实例的proto指向构造函数的原型</span></span><br><span class="line">        obj.__proto__ = fun.prototype;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果构造函数有返回结果，用ret接收,通过apply,将构造函数的this指向实例res;</span></span><br><span class="line">    <span class="keyword">var</span> ret = fun.call(obj, <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>,<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>((<span class="keyword">typeof</span> ret === <span class="string">'object'</span> || <span class="keyword">typeof</span> ret === <span class="string">'function'</span> ) &amp;&amp; ret != <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>由此可见，对象实例的 <strong>proto</strong> 指向创建这个实例的类的原型 prototype，当查找实例上没有的属性时，会去查找 <strong>proto</strong> 上的属性。而在原型上，都会有一个 constructor 指向构造函数。如下图</strong></p>
+<p><img src="../../../../img/proto&amp;prototype/es3_proto.png" alt="es3 proto"></p>
+<p><strong>使用 es6 的 class 语法糖得到结果和上述一样。</strong></p>
+<p><img src="../../../../img/proto&amp;prototype/es6_proto.png" alt="es6 proto"></p>
+<h3 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf"></a>Object.getPrototypeOf</h3><p><strong>对于这个方法官方的说法是，Object.getPrototypeOf() 方法返回指定对象的原型（内部[[ Prototype ]]属性的值）。而实际上，因为 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/proto" target="_blank" rel="noopener"><strong>proto</strong> 属性是被 Web 标准弃用的属性</a>，推荐使用 Object.getPrototypeOf 来代替 <strong>proto</strong>。</strong></p>
+<h2 id="二、prototype"><a href="#二、prototype" class="headerlink" title="二、prototype"></a>二、prototype</h2><p><strong>prototype 原型看似和 <strong>proto</strong> 类似，都是原型的意思，不过 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain#prototype_%E5%92%8C_Object.getPrototypeOf" target="_blank" rel="noopener">prototype 是用于类（构造函数）的，而 <strong>proto</strong> 是用于实例的（instances）</a>。而类（构造函数）的 prototype 在 new 这个实例的时候使用。</strong></p>
+<p><strong>我们来看一下 babel 实现的继承。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 源代码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">	<span class="keyword">constructor</span>(name) &#123; <span class="keyword">this</span>.name = name; &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">static</span> prop = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	sayName() &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name, age) &#123;</span><br><span class="line">		<span class="keyword">super</span>(name); <span class="keyword">this</span>.age = age </span><br><span class="line">	&#125;</span><br><span class="line">  </span><br><span class="line">    sayDetail() &#123;</span><br><span class="line">		<span class="keyword">super</span>.sayName();</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// babel 转义代码</span></span><br><span class="line"><span class="comment">// 实现 Reflect.get</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_get</span>(<span class="params">target, property, receiver</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Reflect</span> !== <span class="string">"undefined"</span> &amp;&amp; <span class="built_in">Reflect</span>.get) &#123;</span><br><span class="line">        _get = <span class="built_in">Reflect</span>.get;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        _get = <span class="function"><span class="keyword">function</span> <span class="title">_get</span>(<span class="params">target, property, receiver</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> base = _superPropBase(target, property);</span><br><span class="line">            <span class="keyword">if</span> (!base)</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            <span class="keyword">var</span> desc = <span class="built_in">Object</span>.getOwnPropertyDescriptor(base, property);</span><br><span class="line">            <span class="keyword">if</span> (desc.get) &#123;</span><br><span class="line">                <span class="keyword">return</span> desc.get.call(receiver);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> desc.value;</span><br><span class="line">        &#125;</span><br><span class="line">        ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _get(target, property, receiver || target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_superPropBase</span>(<span class="params">object, property</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (!<span class="built_in">Object</span>.prototype.hasOwnProperty.call(object, property)) &#123;</span><br><span class="line">        object = _getPrototypeOf(object); <span class="comment">// 取实例的原型</span></span><br><span class="line">        <span class="keyword">if</span> (object === <span class="literal">null</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创造类，向原型上定义方法或者在类上定义静态属性</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_createClass</span>(<span class="params">Constructor, protoProps, staticProps</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (protoProps)</span><br><span class="line">        _defineProperties(Constructor.prototype, protoProps);</span><br><span class="line">    <span class="keyword">if</span> (staticProps)</span><br><span class="line">        _defineProperties(Constructor, staticProps);</span><br><span class="line">    <span class="keyword">return</span> Constructor;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_inherits</span>(<span class="params">subClass, superClass</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 用父的原型创造一个实例</span></span><br><span class="line">    subClass.prototype = <span class="built_in">Object</span>.create(superClass &amp;&amp; superClass.prototype, &#123;</span><br><span class="line">        <span class="keyword">constructor</span>: &#123;</span><br><span class="line">            value: subClass,</span><br><span class="line">            writable: <span class="literal">true</span>,</span><br><span class="line">            configurable: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将子类的 __proto__ 设为 父类，在 es5 中没有这一步操作</span></span><br><span class="line">    <span class="keyword">if</span> (superClass) &#123;</span><br><span class="line">        _setPrototypeOf(subClass, superClass);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> A = <span class="comment">/*#__PURE__*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _createClass(A, [&#123;</span><br><span class="line">        key: <span class="string">"sayName"</span>,</span><br><span class="line">        value: <span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> A;</span><br><span class="line">&#125;();</span><br><span class="line"></span><br><span class="line">_defineProperty(A, <span class="string">"prop"</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> B = <span class="comment">/*#__PURE__*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">_A</span>) </span>&#123;</span><br><span class="line">    _inherits(B, _A);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> _this;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用父的构造函数，在 es5 中直接调用 A.call(this, name)</span></span><br><span class="line">        _this = _getPrototypeOf(B).call(<span class="keyword">this</span>, name); </span><br><span class="line">        _this.age = age;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> _this;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _createClass(B, [&#123;</span><br><span class="line">        key: <span class="string">"sayDetail"</span>,</span><br><span class="line">        value: <span class="function"><span class="keyword">function</span> <span class="title">sayDetail</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 调用父原型上的方法</span></span><br><span class="line">            _get(_getPrototypeOf(B.prototype), <span class="string">"sayName"</span>, <span class="keyword">this</span>).call(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> B;</span><br><span class="line">&#125;(A);</span><br></pre></td></tr></table></figure>
+<p><strong>B.prototype 是一个以 A.prototype 为原型创造的实例，也就是说，B.prototype 是一个 A对象的实例。所以说 prototype 是用于类（构造函数） B，且通过 new 关键字创造的实例，默认没有 prototype 而是 <strong>proto</strong>。</strong></p>
+<p><strong>以前的 es5 版本的继承，不会将子类的 <strong>proto</strong>人为设为父类（一般只有通过 new 关键字得到的实例才会有<strong>proto</strong>），但在 es6 规范出来之后多出来这一步。这个 <strong>proto</strong> 不仅仅将两个类关联起来这么简单，它还实现了父类上的静态属性的继承。当取不到子类的静态属性时，会去父类找静态属性（子类的 <strong>proto</strong>），如下。</strong></p>
+<p><img src="../../../../img/proto&amp;prototype/extends_static.png" alt="extends static"></p>
+<h2 id="三、网上神图"><a href="#三、网上神图" class="headerlink" title="三、网上神图"></a>三、网上神图</h2><p><strong>copy 一张网上的超级复杂的<a href="https://blog.csdn.net/cc18868876837/article/details/81211729" target="_blank" rel="noopener">原型链神图</a>。</strong></p>
+<p><img src="../../../../img/proto&amp;prototype/copy_prototype.png" alt="copy prototype"></p>
+<p><strong>针对原博客再总结几点：</strong></p>
+<p><strong>1.所有的 prototype 都是对象实例，所以 Foo.prototype 和 Function.prototype 的 <strong>proto</strong> 都指向 Object.prototype，而 Object.prototype 的 <strong>proto</strong> 属性为 null。</strong></p>
+<p><strong>2.最左边一条是典型的原型链继承，对于实例 f1，f1 上找不到的属性会在 f1 的 <strong>proto</strong> 对象里面找，依次往上。而对于构造函数来说，构造函数的 prototype 属性都是父类的实例。</strong></p>
+<p><strong>3.这张图中的继承关系是 Foo extends Object，而不是 Foo extends Function，Foo 是 Function 的实例。此处调用 Foo.prototype.isPrototypeOf(f1) 和 Object.prototype.isPrototypeOf(f1) 都为true。这里有一个特殊情况，isPrototypeOf 无法判断基本变量，但是本质上，它和 f1 一样，也是从对象继承而来，万物皆对象。如图：</strong></p>
+<p><img src="../../../../img/proto&amp;prototype/everything_is_object.png" alt="everything is object"></p>
+<p><strong>4.Object 和 Foo 都是构造函数，所以都继承自 Function，不仅如此所有的构造函数都继承自 Function，如 String、Number、Date。它们的 <strong>proto</strong> 都指向 Function.prototype。</strong></p>
+<p><strong>5.Function 的构造函数是他自己，所以右上角会有一条奇怪的链，Function 的 <strong>proto</strong> 和 prototype 都是 Function.prototype。</strong></p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/blog/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

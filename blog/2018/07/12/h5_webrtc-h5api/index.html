@@ -90,7 +90,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#WebRTC实现网页端到网页端互看的流程及demo"><span class="toc-text">WebRTC实现网页端到网页端互看的流程及demo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是WebRTC"><span class="toc-text">- 什么是WebRTC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备所需材料"><span class="toc-text">准备所需材料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebRTC流程"><span class="toc-text">WebRTC流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#以下为RTCPeerConnection事件，应该在第二步创建之后绑上"><span class="toc-text">以下为RTCPeerConnection事件，应该在第二步创建之后绑上</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目地址"><span class="toc-text">项目地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-text">参考文献</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#WebRTC实现网页端到网页端互看的流程及demo"><span class="toc-text">WebRTC实现网页端到网页端互看的流程及demo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、什么是WebRTC"><span class="toc-text">一、什么是WebRTC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、准备所需材料"><span class="toc-text">二、准备所需材料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、WebRTC流程"><span class="toc-text">三、WebRTC流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#以下为RTCPeerConnection事件，应该在第二步创建之后绑上"><span class="toc-text">以下为RTCPeerConnection事件，应该在第二步创建之后绑上</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、项目地址"><span class="toc-text">四、项目地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、参考文献"><span class="toc-text">五、参考文献</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -141,9 +141,9 @@
 </span>
     </div>
     <div class="post-content ">
-        <h1 id="WebRTC实现网页端到网页端互看的流程及demo"><a href="#WebRTC实现网页端到网页端互看的流程及demo" class="headerlink" title="WebRTC实现网页端到网页端互看的流程及demo"></a>WebRTC实现网页端到网页端互看的流程及demo</h1><h2 id="什么是WebRTC"><a href="#什么是WebRTC" class="headerlink" title="- 什么是WebRTC"></a>- 什么是WebRTC</h2><p>WebRTC是网页<strong>实时通信</strong>（Web Real-Time Communication）的缩写，可以让网页<strong>无需安装插件</strong>，进行<strong>实时</strong>语音对话或视频对话的技术，此例实现的是网页之间实时视频通信。</p>
-<h2 id="准备所需材料"><a href="#准备所需材料" class="headerlink" title="准备所需材料"></a>准备所需材料</h2><p>2台有摄像头的电脑、高版本浏览器（这里用到是谷歌65）、信令服务器（可以用node实现，也可以用sip实现，作用是把页面的生成的数据发送给对端）、https服务器（webRTC访问本地设备需要https）</p>
-<h2 id="WebRTC流程"><a href="#WebRTC流程" class="headerlink" title="WebRTC流程"></a>WebRTC流程</h2><p><img src="../../../../img/h5_webrtc-h5api/pc流程图.png" alt="WebRTC流程图"></p>
+        <h1 id="WebRTC实现网页端到网页端互看的流程及demo"><a href="#WebRTC实现网页端到网页端互看的流程及demo" class="headerlink" title="WebRTC实现网页端到网页端互看的流程及demo"></a>WebRTC实现网页端到网页端互看的流程及demo</h1><h2 id="一、什么是WebRTC"><a href="#一、什么是WebRTC" class="headerlink" title="一、什么是WebRTC"></a>一、什么是WebRTC</h2><p>WebRTC是网页<strong>实时通信</strong>（Web Real-Time Communication）的缩写，可以让网页<strong>无需安装插件</strong>，进行<strong>实时</strong>语音对话或视频对话的技术，此例实现的是网页之间实时视频通信。</p>
+<h2 id="二、准备所需材料"><a href="#二、准备所需材料" class="headerlink" title="二、准备所需材料"></a>二、准备所需材料</h2><p>2台有摄像头的电脑、高版本浏览器（这里用到是谷歌65）、信令服务器（可以用node实现，也可以用sip实现，作用是把页面的生成的数据发送给对端）、https服务器（webRTC访问本地设备需要https）</p>
+<h2 id="三、WebRTC流程"><a href="#三、WebRTC流程" class="headerlink" title="三、WebRTC流程"></a>三、WebRTC流程</h2><p><img src="../../../../img/h5_webrtc-h5api/pc流程图.png" alt="WebRTC流程图"></p>
 <p>备注：图中Signal Server（黄色）为信令服务器，可以理解为传递数据用的后台，图中部分老规范方法已经弃用，需用新规范方法代替。</p>
 <ol>
 <li><p>A端和B端与信令服务建立连接，作为之后将A，B端消息交互的通道。</p>
@@ -178,8 +178,8 @@
 <li><p><strong>pc.onremovestream</strong> 失去对端流事件</p>
 </li>
 </ol>
-<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a href="https://github.com/HowGraceU/WebRTC_p2p" target="_blank" rel="noopener">https://github.com/HowGraceU/WebRTC_p2p</a> </p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>WebRTC权威指南.pdf（已上传至项目中）</p>
+<h2 id="四、项目地址"><a href="#四、项目地址" class="headerlink" title="四、项目地址"></a>四、项目地址</h2><p><a href="https://github.com/HowGraceU/WebRTC_p2p" target="_blank" rel="noopener">https://github.com/HowGraceU/WebRTC_p2p</a> </p>
+<h2 id="五、参考文献"><a href="#五、参考文献" class="headerlink" title="五、参考文献"></a>五、参考文献</h2><p>WebRTC权威指南.pdf（已上传至项目中）</p>
 
         
             <div class="donate-container">

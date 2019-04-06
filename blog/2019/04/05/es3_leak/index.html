@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/blog/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        js 中的“魔鬼” - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、eval-导致闭包引用不释放"><span class="toc-text">一、eval 导致闭包引用不释放</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#利用-weakSet-查看内存引用。"><span class="toc-text">利用 weakSet 查看内存引用。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存泄漏"><span class="toc-text">内存泄漏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、new-Function"><span class="toc-text">二、new Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、with"><span class="toc-text">三、with</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、严格模式下的-eval-和-with"><span class="toc-text">四、严格模式下的 eval 和 with</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        js 中的“魔鬼”
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-05 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#leak" title="leak">leak</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="一、eval-导致闭包引用不释放"><a href="#一、eval-导致闭包引用不释放" class="headerlink" title="一、eval 导致闭包引用不释放"></a>一、eval 导致闭包引用不释放</h2><h3 id="利用-weakSet-查看内存引用。"><a href="#利用-weakSet-查看内存引用。" class="headerlink" title="利用 weakSet 查看内存引用。"></a>利用 weakSet 查看内存引用。</h3><p><strong>首先来讲一下如何看内存泄漏。第一我们可以利用 devTool 中的 Memory 来查看内存，其次 es6 中出现了 WeakSet 数据结构，它的好处就是 GC 收回内存时，不会计算 WeakSet 中的引用，可以利用他来看一些内存是否已被回收。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;<span class="attr">a</span>: &#123;&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> weakset = <span class="keyword">new</span> <span class="built_in">WeakSet</span>([obj.a]);</span><br><span class="line"><span class="built_in">console</span>.log(weakset.has(obj.a)); <span class="comment">// true，此时若打印 weakset 可以看到里面包含了一个对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// console.log(obj.a)</span></span><br><span class="line"><span class="comment">// 若此处打印了 obj.a 对象，则会在控制台中保存 obj.a 的引用，会导致下面触发 GC 的时候不回收对象</span></span><br><span class="line"><span class="comment">// 当然也可以清空控制台之后再触发 GC</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> obj.a;</span><br><span class="line"><span class="comment">// 因为 GC 不是随时触发的，此时一定要点一下 devTool 中的 Memory 里的</span></span><br><span class="line"><span class="built_in">console</span>.log(weakset); <span class="comment">// 打印出一个空的 weakset</span></span><br></pre></td></tr></table></figure>
+<h3 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h3><p><strong>然后我们利用 WeakMap 来查看一个 eval 对闭包的影响。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Jqx</span> </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> weakset =  <span class="keyword">new</span> <span class="built_in">WeakSet</span>();</span><br><span class="line"><span class="comment">// 正常的闭包</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> jqx = <span class="keyword">new</span> Jqx();</span><br><span class="line">    <span class="keyword">let</span> jqx2 = <span class="keyword">new</span> Jqx();</span><br><span class="line"></span><br><span class="line">    weakset.add(jqx);</span><br><span class="line">    weakset.add(jqx2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jqx;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getJqx = test();</span><br><span class="line"><span class="comment">// 手动触发 GC</span></span><br><span class="line"><span class="built_in">console</span>.log(weakset); <span class="comment">// WeakSet &#123;Jqx&#125;，只有一个对象</span></span><br></pre></td></tr></table></figure>
+<p><strong>上面闭包没有对 jqx2 的引用，所以 GC 会回收，通过内存快照得到下面结果。</strong></p>
+<p><img src="../../../../img/es3_leak/no_eval.png" alt="no_eval"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Jqx</span> </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> weakset =  <span class="keyword">new</span> <span class="built_in">WeakSet</span>();</span><br><span class="line"><span class="comment">// 带 eval 的闭包</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> jqx = <span class="keyword">new</span> Jqx();</span><br><span class="line">    <span class="keyword">let</span> jqx2 = <span class="keyword">new</span> Jqx();</span><br><span class="line"></span><br><span class="line">    weakset.add(jqx);</span><br><span class="line">    weakset.add(jqx2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">eval</span>(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getJqx = test();</span><br><span class="line"><span class="comment">// 手动触发 GC</span></span><br><span class="line"><span class="built_in">console</span>.log(weakset); <span class="comment">// WeakSet &#123;Jqx, Jqx&#125;，两个对象都在</span></span><br></pre></td></tr></table></figure>
+<p><strong>上面闭包中有 eval，因为 eval 是在运行时才会将其中的字符串转为 js，所以 js 引擎保留了整个闭包中的所有的内容。通过内存快照得到下面结果。</strong></p>
+<p><img src="../../../../img/es3_leak/eval.png" alt="eval"></p>
+<p><strong>此外，eval也容易引起网站被攻击，不到万不得已就不要使用了。</strong></p>
+<h2 id="二、new-Function"><a href="#二、new-Function" class="headerlink" title="二、new Function"></a>二、new Function</h2><p><strong>讲完 eval，再来说说 new Function。Function 的调用与 eval 相似，不过 Function 中若有变量，则都指向全局变量，而不会对闭包中的变量进行引用，所以也不会像 eval 一样造成内存泄漏。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'jqx'</span>;</span><br><span class="line"><span class="keyword">var</span> test = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">'jqx2'</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'console.log(name)'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test()(); <span class="comment">// 打印 jqx</span></span><br></pre></td></tr></table></figure>
+<h2 id="三、with"><a href="#三、with" class="headerlink" title="三、with"></a>三、with</h2><p><strong>说到 eval 肯定也要提一嘴 with，俩兄弟双双欺骗词法作用域（在运行时改变作用域）。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'jqx'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> (obj) &#123;</span><br><span class="line">    name = <span class="string">'jqx2'</span>;</span><br><span class="line">    job = <span class="string">'programmer'</span>; <span class="comment">// 若对象 obj 上没有 job 属性，则赋值到 window 上</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.name);</span><br><span class="line"><span class="built_in">console</span>.log(obj.job);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.job);</span><br></pre></td></tr></table></figure>
+<h2 id="四、严格模式下的-eval-和-with"><a href="#四、严格模式下的-eval-和-with" class="headerlink" title="四、严格模式下的 eval 和 with"></a>四、严格模式下的 eval 和 with</h2><p><strong>严格模式下 with 就直接被禁用了，而 eval 无法修改作用域。不过 eval 还是可以引用到闭包中的变量，所以闭包还是不会被释放。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Jqx</span> </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> weakset =  <span class="keyword">new</span> <span class="built_in">WeakSet</span>();</span><br><span class="line"><span class="comment">// 带 eval 的闭包</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> jqx = <span class="keyword">new</span> Jqx();</span><br><span class="line">    <span class="keyword">let</span> jqx2 = <span class="keyword">new</span> Jqx();</span><br><span class="line"></span><br><span class="line">    weakset.add(jqx);</span><br><span class="line">    weakset.add(jqx2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">		'use strict'</span>;</span><br><span class="line">        <span class="built_in">eval</span>(<span class="string">'console.log(jqx);var a = 1;'</span>);</span><br><span class="line">		<span class="built_in">console</span>.log(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getJqx = test();</span><br><span class="line"><span class="comment">// 手动触发 GC</span></span><br><span class="line"><span class="built_in">console</span>.log(weakset); <span class="comment">// WeakSet &#123;Jqx, Jqx&#125;，两个对象都在</span></span><br><span class="line"></span><br><span class="line">getJqx(); </span><br><span class="line"><span class="comment">// 打印对象 jqx</span></span><br><span class="line"><span class="comment">// 报错 a 不存在</span></span><br></pre></td></tr></table></figure>
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/blog/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

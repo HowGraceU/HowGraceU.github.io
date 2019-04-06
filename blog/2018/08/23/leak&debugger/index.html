@@ -90,7 +90,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#内存泄露"><span class="toc-text">内存泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是内存泄露"><span class="toc-text">什么是内存泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#js的内存管理"><span class="toc-text">js的内存管理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见4种的内存泄露"><span class="toc-text">常见4种的内存泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#全局变量注意事项"><span class="toc-text">全局变量注意事项</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#devTools调试"><span class="toc-text">devTools调试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Profiles视图"><span class="toc-text">Profiles视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-text">参考文献</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、内存泄露"><span class="toc-text">一、内存泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是内存泄露"><span class="toc-text">什么是内存泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#js的内存管理"><span class="toc-text">js的内存管理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、常见4种的内存泄露"><span class="toc-text">二、常见4种的内存泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#全局变量注意事项"><span class="toc-text">全局变量注意事项</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、devTools调试"><span class="toc-text">三、devTools调试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Profiles视图"><span class="toc-text">Profiles视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-text">参考文献</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -141,9 +141,9 @@
 </span>
     </div>
     <div class="post-content ">
-        <h1 id="内存泄露"><a href="#内存泄露" class="headerlink" title="内存泄露"></a>内存泄露</h1><h2 id="什么是内存泄露"><a href="#什么是内存泄露" class="headerlink" title="什么是内存泄露"></a>什么是内存泄露</h2><p>本质上来讲，内存泄露是当一块内存不再被应用程序使用的时候，由于某种原因没有返还给操作系统或者空闲内存池的现象。</p>
+        <h1 id="一、内存泄露"><a href="#一、内存泄露" class="headerlink" title="一、内存泄露"></a>一、内存泄露</h1><h2 id="什么是内存泄露"><a href="#什么是内存泄露" class="headerlink" title="什么是内存泄露"></a>什么是内存泄露</h2><p>本质上来讲，内存泄露是当一块内存不再被应用程序使用的时候，由于某种原因没有返还给操作系统或者空闲内存池的现象。</p>
 <h2 id="js的内存管理"><a href="#js的内存管理" class="headerlink" title="js的内存管理"></a>js的内存管理</h2><p>js中的垃圾回收机制，会周期性地检查之前被分配出去的内存是否可以从应用的其他部分访问。换句话说，什么样的内存仍然可以从应用程序的其他部分访问，不可访问的内存可以通过算法确定并标记以便返还给操作系统。</p>
-<h1 id="常见4种的内存泄露"><a href="#常见4种的内存泄露" class="headerlink" title="常见4种的内存泄露"></a>常见4种的内存泄露</h1><ol>
+<h1 id="二、常见4种的内存泄露"><a href="#二、常见4种的内存泄露" class="headerlink" title="二、常见4种的内存泄露"></a>二、常见4种的内存泄露</h1><ol>
 <li>意外的全局变量</li>
 </ol>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 例子1 */</span> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    bar = <span class="string">'a hidden global variable'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 例子2 */</span> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bar = <span class="string">'a global variable'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
@@ -182,7 +182,10 @@
 <p>文中代码在浏览器中运行时的内存情况</p>
 <p><img src="../../../../img/leak&amp;debugger/5.jpg" alt="文中代码内存情况"></p>
 <p>导致内存泄露的原因是在同一个父作用域下创建闭包时，这个作用域是共享的。代码中closeFn的闭包作用域和unused的闭包作用域是共享的。即便unused函数从未被使用且不可能被使用，它对oldObj的引用造成了oldObj的活跃（阻止它被回收）。代码三中closeFn拥有的闭包与代码二中closeFn拥有的闭包相同。</p>
-<h1 id="devTools调试"><a href="#devTools调试" class="headerlink" title="devTools调试"></a>devTools调试</h1><h2 id="Profiles视图"><a href="#Profiles视图" class="headerlink" title="Profiles视图"></a>Profiles视图</h2><p>在老版本谷歌上显示为Profiles，新版本谷歌改名为Menory，文中使用谷歌版本69。该功能可以对js内存进行快照，也可以记录一段时间内的内存分配情况，如下图。</p>
+<hr>
+<p><strong>2019-04-04 记录，v8引擎修复了没有调用的函数对闭包的引用，但是在 closeFn 里面加上 debugger，可以看到还是保存了对闭包的引用。</strong></p>
+<hr>
+<h1 id="三、devTools调试"><a href="#三、devTools调试" class="headerlink" title="三、devTools调试"></a>三、devTools调试</h1><h2 id="Profiles视图"><a href="#Profiles视图" class="headerlink" title="Profiles视图"></a>Profiles视图</h2><p>在老版本谷歌上显示为Profiles，新版本谷歌改名为Menory，文中使用谷歌版本69。该功能可以对js内存进行快照，也可以记录一段时间内的内存分配情况，如下图。</p>
 <p><img src="../../../../img/leak&amp;debugger/6.jpg" alt="快照、录像"></p>
 <p>以上文代码三内存泄露为例，</p>
 <ol>
