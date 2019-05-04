@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/blog/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        迭代器与生成器 - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、迭代器规范"><span class="toc-text">一、迭代器规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Generator"><span class="toc-text">二、Generator</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Generator"><span class="toc-text">Generator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yield"><span class="toc-text">yield *</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转译-Generator"><span class="toc-text">转译 Generator</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        迭代器与生成器
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-05-03 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#es6" title="es6">es6</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="一、迭代器规范"><a href="#一、迭代器规范" class="headerlink" title="一、迭代器规范"></a>一、迭代器规范</h2><p><strong>一个标准的遍历器需要拥有以下属性，并且通过查看 for-of 的转码能够知道这些属性都是怎么样被调用的。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Iterator [必须]</span><br><span class="line">	next() &#123;method&#125;: 取得下一个IteratorResult</span><br><span class="line">Iterator [可选]</span><br><span class="line">	<span class="keyword">return</span>() &#123;method&#125;: 停止迭代并返回IteratorResult</span><br><span class="line">	<span class="keyword">throw</span>() &#123;method&#125;: 通知错误并返回IteratorResult</span><br><span class="line"></span><br><span class="line">IteratorResult</span><br><span class="line">	value &#123;property&#125;: 当前的迭代值或最终的返回值</span><br><span class="line">		（如果它的值为<span class="string">`undefined`</span>，是可选的）</span><br><span class="line">	done &#123;property&#125;: 布尔值，指示完成的状态</span><br><span class="line"></span><br><span class="line"><span class="comment">// for-of 转码</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> _iterator = it[<span class="built_in">Symbol</span>.iterator](), _step; (_step = _iterator.next()).done;) &#123;</span><br><span class="line">    <span class="keyword">var</span> a = _step.value;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>根据上面的规范，我们可以自己定义一个可迭代的对象，并用 for-of 来遍历它。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    <span class="number">0</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="number">1</span>: <span class="number">1</span>,</span><br><span class="line">    length: <span class="number">2</span>,</span><br><span class="line">    [<span class="built_in">Symbol</span>.iterator] () &#123;</span><br><span class="line">        <span class="keyword">let</span> _obj = <span class="keyword">this</span>, index = <span class="number">0</span>, length = _obj.length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            [<span class="built_in">Symbol</span>.iterator] () &#123;<span class="keyword">return</span> <span class="keyword">this</span>&#125;,</span><br><span class="line">            next() &#123;</span><br><span class="line">				<span class="keyword">return</span> index &lt; length ?</span><br><span class="line">                &#123; <span class="attr">value</span>: <span class="string">`No.<span class="subst">$&#123;index&#125;</span> is <span class="subst">$&#123;_obj[index++]&#125;</span>`</span>, <span class="attr">done</span>: <span class="literal">false</span> &#125;:</span><br><span class="line">                &#123; <span class="attr">value</span>: <span class="string">'undefined'</span>, <span class="attr">done</span>: <span class="literal">true</span>&#125;;</span><br><span class="line">			&#125;,</span><br><span class="line"></span><br><span class="line">			<span class="keyword">return</span>() &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(</span><br><span class="line">					<span class="string">"iterator return"</span></span><br><span class="line">				);</span><br><span class="line">				<span class="keyword">return</span> &#123; <span class="attr">value</span>: _obj[index], <span class="attr">done</span>: <span class="literal">true</span> &#125;;</span><br><span class="line">			&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> obj) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(item);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// No.0 is 0</span></span><br><span class="line"><span class="comment">// iterator return</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([...obj]);</span><br><span class="line"><span class="comment">//  ["No.0 is 0", "No.1 is 1"]</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、Generator"><a href="#二、Generator" class="headerlink" title="二、Generator"></a>二、Generator</h2><h3 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h3><p><strong>Generator 函数可以在运行期间暂停它自己，还可以立即或者稍后继续运行，而且 Generator 函数生成的是一个迭代器，所以可以放入 for-of 中循环。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> gen()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(item);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1， 2， 3</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([...gen()]);</span><br><span class="line"><span class="comment">//  [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<p><strong>这让在对象上添加迭代器变得简单。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    <span class="number">0</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="number">1</span>: <span class="number">1</span>,</span><br><span class="line">    length: <span class="number">2</span>,</span><br><span class="line">    *[<span class="built_in">Symbol</span>.iterator] () &#123;</span><br><span class="line">        <span class="keyword">let</span> index = <span class="number">0</span>, length = <span class="keyword">this</span>.length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(index &lt; length) &#123;</span><br><span class="line">            <span class="keyword">yield</span> <span class="string">`No.<span class="subst">$&#123;index&#125;</span> is <span class="subst">$&#123;<span class="keyword">this</span>[index++]&#125;</span>`</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([...obj]);</span><br><span class="line"><span class="comment">//  ["No.0 is 0", "No.1 is 1"]</span></span><br></pre></td></tr></table></figure>
+<h3 id="yield"><a href="#yield" class="headerlink" title="yield *"></a>yield *</h3><p><strong>一个 <em> 使 yield 成为一个机制非常不同的 yield </em>，称为 yield 委托。yield * ..需要一个可迭代对象；然后它调用这个可迭代对象的迭代器，并将它自己的宿主 generator 的控制权委托给那个迭代器，直到它被耗尽。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">yield</span> *[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>如果 yield 委托的是一个 Generator 函数，且委托的 Generator 函数中有返回值，返回值会被前一个函数的 yield * 捕获。</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">yield</span> *[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">	<span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> x = <span class="keyword">yield</span> *foo();</span><br><span class="line">	<span class="built_in">console</span>.log( <span class="string">"x:"</span>, x );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> v <span class="keyword">of</span> bar()) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log( v );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// x: 4</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="转译-Generator"><a href="#转译-Generator" class="headerlink" title="转译 Generator"></a>转译 Generator</h3><p><strong>以下为 babel 中比较系统得显示了 Generator 的转译，一个比较系统的遍历器。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 源代码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// babel 转义代码</span></span><br><span class="line"><span class="keyword">var</span> IteratorPrototype = &#123;&#125;;</span><br><span class="line">IteratorPrototype[iteratorSymbol] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Generator</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GeneratorFunction</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GeneratorFunctionPrototype</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = <span class="built_in">Object</span>.create(IteratorPrototype);</span><br><span class="line">GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;</span><br><span class="line">GeneratorFunctionPrototype.constructor = GeneratorFunction;</span><br><span class="line">GeneratorFunctionPrototype[toStringTagSymbol] = GeneratorFunction.displayName = <span class="string">"GeneratorFunction"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mark</span>(<span class="params">genFun</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">Object</span>.setPrototypeOf(genFun, GeneratorFunctionPrototype);</span><br><span class="line">    genFun.prototype = <span class="built_in">Object</span>.create(Gp);</span><br><span class="line">    <span class="keyword">return</span> genFun;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这里创建了一个奇怪的原型链</span></span><br><span class="line">GeneratorFunction.prototype = GeneratorFunctionPrototype;</span><br><span class="line">GeneratorFunctionPrototype.prototype = <span class="built_in">Object</span>.create(IteratorPrototype);</span><br><span class="line">genFun.__proto__ = GeneratorFunctionPrototype = GeneratorFunction.prototype;</span><br><span class="line">genFun.prototype = <span class="built_in">Object</span>.create(GeneratorFunctionPrototype.prototype);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 所以，genFun 是一个 GeneratorFunction 的实例</span></span><br><span class="line"><span class="comment">// genFun 继承自 Generator(GeneratorFunctionPrototype), Generator(GeneratorFunctionPrototype) 又继承自 Iterator</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 Iterator 实例上个挂载迭代器的方法</span></span><br><span class="line">[<span class="string">"next"</span>, <span class="string">"throw"</span>, <span class="string">"return"</span>].forEach(<span class="function"><span class="keyword">function</span>(<span class="params">method</span>) </span>&#123;</span><br><span class="line">    Gp[method] = <span class="function"><span class="keyword">function</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._invoke(method, arg);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wrap</span>(<span class="params">innerFn, outerFn, self, tryLocsList</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.</span></span><br><span class="line">    <span class="keyword">var</span> protoGenerator = outerFn &amp;&amp; outerFn.prototype <span class="keyword">instanceof</span> Generator ? outerFn : Generator;</span><br><span class="line">    <span class="comment">// 创建一个 genFun 实例</span></span><br><span class="line">    <span class="keyword">var</span> generator = <span class="built_in">Object</span>.create(protoGenerator.prototype);</span><br><span class="line">    <span class="keyword">var</span> context = <span class="keyword">new</span> Context(tryLocsList || []); <span class="comment">// 一个全局变量</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// The ._invoke method unifies the implementations of the .next,</span></span><br><span class="line">    <span class="comment">// .throw, and .return methods.</span></span><br><span class="line">    generator._invoke = makeInvokeMethod(innerFn, self, context);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> generator;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> GenStateSuspendedStart = <span class="string">"suspendedStart"</span>;</span><br><span class="line"><span class="keyword">var</span> GenStateSuspendedYield = <span class="string">"suspendedYield"</span>;</span><br><span class="line"><span class="keyword">var</span> GenStateExecuting = <span class="string">"executing"</span>;</span><br><span class="line"><span class="keyword">var</span> GenStateCompleted = <span class="string">"completed"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeInvokeMethod</span>(<span class="params">innerFn, self, context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> state = GenStateSuspendedStart;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">invoke</span>(<span class="params">method, arg</span>) </span>&#123;</span><br><span class="line">        context.method = method;</span><br><span class="line">        context.arg = arg;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (context.method === <span class="string">"next"</span>) &#123;</span><br><span class="line">                <span class="comment">// Setting context._sent for legacy support of Babel's</span></span><br><span class="line">                <span class="comment">// function.sent implementation.</span></span><br><span class="line">                context.sent = context._sent = context.arg;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (context.method === <span class="string">"throw"</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (state === GenStateSuspendedStart) &#123;</span><br><span class="line">                    state = GenStateCompleted;</span><br><span class="line">                    <span class="keyword">throw</span> context.arg;</span><br><span class="line">                &#125;</span><br><span class="line">                context.dispatchException(context.arg);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (context.method === <span class="string">"return"</span>) &#123;</span><br><span class="line">                context.abrupt(<span class="string">"return"</span>, context.arg);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            state = GenStateExecuting;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 调用 innerFn, 拿到返回值</span></span><br><span class="line">            <span class="keyword">var</span> record = tryCatch(innerFn, self, context);</span><br><span class="line">            <span class="keyword">if</span> (record.type === <span class="string">"normal"</span>) &#123;</span><br><span class="line">                <span class="comment">// If an exception is thrown from innerFn, we leave state ===</span></span><br><span class="line">                <span class="comment">// GenStateExecuting and loop back for another invocation.</span></span><br><span class="line">                state = context.done ? GenStateCompleted : GenStateSuspendedYield;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (record.arg === ContinueSentinel) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> &#123;</span><br><span class="line">                    value: record.arg,</span><br><span class="line">                    done: context.done</span><br><span class="line">                &#125;;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (record.type === <span class="string">"throw"</span>) &#123;</span><br><span class="line">                state = GenStateCompleted;</span><br><span class="line">                <span class="comment">// Dispatch the exception by looping back around to the</span></span><br><span class="line">                <span class="comment">// context.dispatchException(context.arg) call above.</span></span><br><span class="line">                context.method = <span class="string">"throw"</span>;</span><br><span class="line">                context.arg = record.arg;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tryCatch</span>(<span class="params">fn, obj, arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            type: <span class="string">"normal"</span>,</span><br><span class="line">            arg: fn.call(obj, arg)</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            type: <span class="string">"throw"</span>,</span><br><span class="line">            arg: err</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主函数</span></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// outerFn</span></span><br><span class="line"><span class="keyword">var</span> _marked =</span><br><span class="line"><span class="comment">/*#__PURE__*/</span></span><br><span class="line">mark(bar);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> wrap(<span class="function"><span class="keyword">function</span> <span class="title">bar$</span>(<span class="params">_context</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// innerFn</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (_context.prev = _context.next) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                _context.next = <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                _context.next = <span class="number">4</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">                _context.next = <span class="number">6</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">                _context.next = <span class="number">8</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">                <span class="keyword">return</span> _context.abrupt(<span class="string">"return"</span>, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> <span class="number">9</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"end"</span>:</span><br><span class="line">                <span class="keyword">return</span> _context.stop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, _marked);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/blog/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
