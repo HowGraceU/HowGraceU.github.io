@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="金奇晓的博客">
+    <meta name="keyword"  content="前端">
+    <!-- <link rel="icon" href="/blog/img/favicon.ico"> -->
+    <link rel="icon" type="image/x-icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        延时点击 input[type=file] - QiXiao的博客 | QiXiao&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> personal growth record </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>QiXiao Jin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/blog/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li style='display: none;' >
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> personal growth record </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        延时点击 input[type=file]
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-07-07 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/blog/tags/#h5" title="h5">h5</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><strong>文件类型的 input 框是在网页端做文件上传的核心，但是它的按钮的字和文件名显示的字无法控制，所以一般会用一个 div 来代替 input 的样式，然后将 input 隐藏。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// html</span></span><br><span class="line">&lt;input id=<span class="string">"fileInput"</span> type=<span class="string">"file"</span> hidden&gt;</span><br><span class="line">&lt;button id=<span class="string">"fakeInput"</span>&gt;点击上传&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ script</span></span><br><span class="line"><span class="regexp">fakeInput.onclick = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  fileInput.click()</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>实际场景中，需要通过请求才能知道能否让用户进行上次文件操作，但是意外得发现在 ajax 请求过后，再调用 input 的 click 却无法调出选择文件的选择框。</strong></p>
+<p><strong>像下面这种情况，如果 ajax 延迟了 1 秒，选择框还是可以打开的，但是如果 ajax 延迟了有 5 秒之久，则不会打开选择框并且打印警告 “File chooser dialog can only be shown with a user activation.”</strong></p>
+<p></p><p data-height="500" data-theme-id="dark" data-slug-hash="NZOGdW" data-default-tab="html,result" data-user="howgraceu" data-embed-version="2" data-pen-title="CSS sidebar toggle" class="codepen"></p><p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<p><strong>警告内容是 “文件选择框只能由用户激活”。这是为什么，延迟了 1 秒和 5 秒都不是由用户激活的，凭什么 1 秒就可以弹出，5 秒就无法弹出。</strong></p>
+<p><strong>于是去 github 搜索了警告内容，在 <a href="https://github.com/chromium/chromium/blob/ea0dd1a2294dcd1aec001612238c481ce36f6fda/third_party/blink/web_tests/fast/forms/file/input-file-not-open-without-gesture-expected.txt" target="_blank" rel="noopener">chromium/chromium</a> 项目中搜到了相关信息。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CONSOLE WARNING: line <span class="number">32</span>: File chooser dialog can only be shown <span class="keyword">with</span> a user activation.</span><br><span class="line">This file is to test that opening file dialog requires a user gesture. Please refer to https:<span class="comment">//bugs.webkit.org/show_bug.cgi?id=47593 for more details.</span></span><br><span class="line">Test opening file dialog without user gesture is PASSED</span><br></pre></td></tr></table></figure>
+<p><strong>文件中提到了一个 bug 地址，进去一趟究竟。文中主要提到了几点：</strong></p>
+<p><strong>2010-10-13 提出 input[type=file] 在 WebKit 中表示为文件上传控件，它是一个敏感控件，因为它可以访问用户的本地文件。 所以理想情况下浏览器应该只允许通过用户手势进行文件选择行为，但到目前为止只有 Firefox。</strong></p>
+<p><strong>2010-10-16 添加代码，打开文件选择框时，需要判断是否用户行为。</strong></p>
+<p><strong>2011-02-22 Firefox 4 和 IE 现在允许在输入元素上以编程方式调用.click（）。</strong></p>
+<p><strong>2011-02-23 我建议只有一个计时器才能记住用户手势状态，并且在该超时内创建的新超时不能继承此手势。</strong></p>
+<p><strong>可见，通过代码来调用文件选择框似乎和用户发起点击事件的时间有点关系，具体是什么关系，真的只是超时无法打开这么简单也并看不出来。此外，在 chromium 项目中还有<a href="https://github.com/chromium/chromium/blob/a7d92c73b306b45828ec4b1286ed42ae928f6c4a/third_party/blink/renderer/core/html/forms/file_input_type.cc" target="_blank" rel="noopener">另外一处</a>被搜索到，但是通篇搜索也没找到定义这个函数的地方（cpp课没好好上 - -！）。</strong></p>
+<p><img src="../../../../img/click_input_file/chromium.jpg" alt="chromium"></p>
+<p><strong>至此，也无法再继续往下查了，网上也没有相关的信息。关于文首的关于 ajax 请求之后无法打开文件选择框的问题，可以在用户点击时先弹出文件选择框，然后再经过 ajax 请求能否上传文件。</strong></p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/blog/img/donate.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <!-- <li>
+            <a target="_blank" href="https://twitter.com/iconie_alloy">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/ai-er-lan-xue-da">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3286578617">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/xiaotao.nie.5">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/howgraceu">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <!-- <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/小涛-聂-80964aba">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li> -->
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">html blog</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
