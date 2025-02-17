@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>魔方公式</title>
+    <style>
+        :root {
+            --formula-x: -76px;
+            --formula-y: -876px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .formula-container {
+            width: 168px;
+            /* 放大两倍 */
+            height: 170px;
+            /* 放大两倍 */
+            background-size: 2560px 3624px;
+            /* 调整背景图像大小以适应放大后的容器 */
+            background-image: url("algorithms.jpg");
+            background-position: calc(var(--formula-x) * 2) calc(var(--formula-y) * 2);
+            /* 使用CSS变量并放大两倍 */
+            anchor-name: --thumb;
+        }
+
+        .overlay {
+            width: 168px;
+            /* 与 formula-container 宽度相同 */
+            height: 65px;
+            /* 遮挡的高度 */
+            background-color: white;
+            /* 遮挡颜色 */
+            position-anchor: --thumb;
+            position: absolute;
+            bottom: anchor(bottom);
+            display: none;
+            /* 默认隐藏 */
+        }
+
+        button {
+            margin-top: 20px;
+            /* 增加按钮与容器之间的间距 */
+            background-color: #007BFF;
+            /* 背景颜色 */
+            color: white;
+            /* 字体颜色 */
+            border: none;
+            /* 去掉边框 */
+            padding: 10px 20px;
+            /* 内边距 */
+            border-radius: 5px;
+            /* 圆角 */
+            cursor: pointer;
+            /* 鼠标悬停效果 */
+            transition: background-color 0.3s;
+            /* 过渡效果 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* 添加阴影 */
+            font-size: 16px;
+            /* 字体大小 */
+            font-weight: bold;
+            /* 字体粗细 */
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            /* 悬停时的背景颜色 */
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 5px;
+            margin-bottom: 20px;
+            /* 默认隐藏 */
+        }
+
+        .formula-grid div {
+            width: 84px;
+            height: 85px;
+            background-image: url("algorithms.jpg");
+            background-size: 1280px 1812px;
+            background-position: 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .formula-grid div.selected {
+            background-color: rgba(0, 123, 255, 0.5);
+            border: 2px solid blue;
+            /* 添加蓝色边框 */
+        }
+
+        .formula-grid-overlay {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+            /* 默认隐藏 */
+        }
+
+        .formula-grid-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            /* 添加 flex 布局 */
+            flex-direction: column;
+            /* 设置为列方向 */
+            align-items: center;
+            /* 水平居中 */
+        }
+
+        .formula-grid-container button {
+            margin-top: 10px;
+            align-self: center;
+            /* 确保按钮水平居中 */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>魔方公式</h1>
+    <div class="container">
+        <button onclick="showFormulaGrid()">设置公式</button>
+        <div class="formula-container"></div>
+        <div class="overlay" id="overlay"></div> <!-- 添加遮挡层 -->
+        <button onclick="changeFormula()">切换公式</button>
+        <button onclick="toggleOverlay()">切换遮挡</button> <!-- 添加切换遮挡的按钮 -->
+    </div>
+
+    <div class="formula-grid-overlay" id="formula-grid-overlay">
+        <div class="formula-grid-container">
+            <div class="formula-grid" id="formula-grid">
+                <!-- 动态生成的格子 -->
+            </div>
+            <button onclick="confirmSelection()">确定</button>
+        </div>
+    </div>
+
+    <script>
+        let currentFormulaIndex = 0;
+        const columnSpacing = 95; // 列间距
+        const rowSpacing = 92; // 行间距
+        const formulasPerRow = 12; // 每行公式数量
+        const totalFormulas = 57; // 总公式数量
+
+        const formulas = [];
+        for (let i = 0; i < totalFormulas; i++) {
+            const row = Math.floor(i / formulasPerRow);
+            const col = i % formulasPerRow;
+            const x = -74 - col * columnSpacing;
+            const y = -876 - row * rowSpacing;
+            formulas.push({ x, y });
+        }
+
+        let presetFormulas = []; // 预设的公式顺序
+
+        const gridElement = document.getElementById('formula-grid');
+        // 添加 formula-grid 元素
+        for (let i = 0; i < totalFormulas; i++) {
+            const div = document.createElement('div');
+            div.style.backgroundPosition = `${formulas[i].x}px ${formulas[i].y}px`; // 放大两倍
+            div.onclick = () => toggleSelection(div, i + 1);
+            gridElement.appendChild(div);
+        }
+
+        // 从 localStorage 中恢复选择的公式
+        if (localStorage.getItem('presetFormulas')) {
+            presetFormulas = JSON.parse(localStorage.getItem('presetFormulas'));
+            presetFormulas.forEach(formulaIndex => {
+                const div = gridElement.children[formulaIndex - 1];
+                if (div) {
+                    div.classList.add('selected');
+                }
+            });
+        }
+
+        function toggleSelection(div, formulaIndex) {
+            if (div.classList.contains('selected')) {
+                div.classList.remove('selected');
+                presetFormulas = presetFormulas.filter(index => index !== formulaIndex);
+            } else {
+                if (presetFormulas.length < totalFormulas) {
+                    div.classList.add('selected');
+                    presetFormulas.push(formulaIndex);
+                } else {
+                    alert('最多只能选择57个公式');
+                }
+            }
+        }
+
+        function showFormulaGrid() {
+            document.getElementById('formula-grid-overlay').style.display = 'flex';
+        }
+
+        function confirmSelection() {
+            document.getElementById('formula-grid-overlay').style.display = 'none';
+            setPresetFormulas();
+            // 保存选择的公式到 localStorage
+            localStorage.setItem('presetFormulas', JSON.stringify(presetFormulas));
+        }
+
+        function setPresetFormulas() {
+            if (presetFormulas.length > 0) {
+                currentFormulaIndex = 0; // 重置当前公式索引
+                updateFormula(presetFormulas[currentFormulaIndex]);
+            } else {
+                alert('请选择至少一个公式');
+            }
+        }
+
+        function changeFormula() {
+            currentFormulaIndex = (currentFormulaIndex + 1) % presetFormulas.length;
+            const formulaIndex = presetFormulas[currentFormulaIndex];
+            updateFormula(formulaIndex);
+        }
+
+        function updateFormula(formulaIndex) {
+            const formula = formulas[formulaIndex - 1]; // 索引从0开始，所以减1
+            document.documentElement.style.setProperty('--formula-x', `${formula.x}px`); // 放大两倍
+            document.documentElement.style.setProperty('--formula-y', `${formula.y}px`); // 放大两倍
+        }
+
+        function toggleOverlay() {
+            const overlay = document.getElementById('overlay');
+            if (overlay.style.display === 'none' || overlay.style.display === '') {
+                overlay.style.display = 'block';
+            } else {
+                overlay.style.display = 'none';
+            }
+        }
+
+        // 添加清空按钮
+        const clearButton = document.createElement('button');
+        clearButton.textContent = '清空';
+        clearButton.onclick = () => {
+            presetFormulas = [];
+            Array.from(gridElement.children).forEach(div => div.classList.remove('selected'));
+            localStorage.removeItem('presetFormulas');
+            alert('已清空所有选择的公式');
+        };
+        document.querySelector('.formula-grid-container').appendChild(clearButton);
+    </script>
+</body>
+
+</html>
