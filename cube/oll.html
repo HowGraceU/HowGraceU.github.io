@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>魔方公式</title>
     <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
         :root {
             --formula-x: -76px;
             --formula-y: -876px;
@@ -116,6 +124,7 @@
         }
 
         .formula-grid-container {
+            position: relative;
             background-color: white;
             padding: 20px;
             border-radius: 5px;
@@ -124,8 +133,7 @@
             /* 添加 flex 布局 */
             flex-direction: column;
             /* 设置为列方向 */
-            align-items: center;
-            /* 水平居中 */
+            overflow: auto;
         }
 
         .formula-grid-container button {
@@ -133,11 +141,19 @@
             align-self: center;
             /* 确保按钮水平居中 */
         }
+
+        .button-container {
+            width: 100%;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 
 <body>
-    <h1>魔方公式</h1>
     <div class="container">
         <button onclick="showFormulaGrid()">设置公式</button>
         <div class="formula-container"></div>
@@ -151,7 +167,15 @@
             <div class="formula-grid" id="formula-grid">
                 <!-- 动态生成的格子 -->
             </div>
-            <button onclick="confirmSelection()">确定</button>
+            <div class="button-container">
+                <button onclick="confirmSelection()">确定</button>
+                <button onclick="() => {
+                    presetFormulas = [];
+                    Array.from(gridElement.children).forEach(div => div.classList.remove('selected'));
+                    localStorage.removeItem('presetFormulas');
+                    alert('已清空所有选择的公式');
+                }">清空</button>
+            </div>
         </div>
     </div>
 
@@ -247,17 +271,6 @@
                 overlay.style.display = 'none';
             }
         }
-
-        // 添加清空按钮
-        const clearButton = document.createElement('button');
-        clearButton.textContent = '清空';
-        clearButton.onclick = () => {
-            presetFormulas = [];
-            Array.from(gridElement.children).forEach(div => div.classList.remove('selected'));
-            localStorage.removeItem('presetFormulas');
-            alert('已清空所有选择的公式');
-        };
-        document.querySelector('.formula-grid-container').appendChild(clearButton);
     </script>
 </body>
 
